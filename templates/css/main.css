@@ -2,9 +2,3 @@ td,
 th {
 	width: 25%;
 }
-input [type='submit']{
-	border: none;
-}
-input [type='text']{
-	height: 36px;
-}

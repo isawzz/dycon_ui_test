@@ -37,11 +37,20 @@ in open interactive shell:
 >>> db.create_all()
 
 2. creating the ui:
+see templates dir und app.py
 
+______________push to heroku
+pip install gunicorn
+pip freeze > requirements.txt
 
+(make sure .gitignore is in place!)
+git init
+git add .
+git commit -m "initial"
 
-
-
+need ProcFile
+heroku create dyconuitest
+git push heroku master
 
 
 
