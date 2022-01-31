@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template, url_for, request, send_from_directory, redirect
 
 app = Flask(__name__, static_url_path='', static_folder='')
 
@@ -22,8 +22,8 @@ class Todo(db.Model):
 #endregion database
 
 #region static routes
-@app.route('/')
-def index():
+@app.route('/0')
+def index0():
 	return send_from_directory('front', 'index.html')
 @app.route('/1')
 def index1():
@@ -33,16 +33,47 @@ def index2():
 	return send_from_directory('front2', 'index.html')
 
 #region jinja 2 (flask template) routes: mix python into html
-@app.route('/templates', methods=['POST', 'GET'])
-def template():
+@app.route('/', methods=['POST', 'GET'])
+def index():
 	if request.method == 'POST':
-		return 'Hello!'
+		#return 'Hello!' #works when click auf 'Add Task' button
+		task_content = request.form['content'] # should be id of input (see index.html)
+		new_task = Todo(content=task_content)
+		# task_content = request.form['content']
+		# new_task = Todo(content=task_content)
+		try:
+			db.session.add(new_task)
+			db.session.commit()
+			return redirect('/')
+		except:
+			return 'There was an issue adding your task'
+
 	else:
-		return render_template('index.html')
+		tasks = Todo.query.order_by(Todo.date_created).all()
+		return render_template('index.html', tasks=tasks)
+
+
+
+# @app.route('/', methods=['POST', 'GET'])
+# def template():
+# 	if request.method == 'POST':
+# 		#return 'Hello!' #works when click auf 'Add Task' button
+# 		task_content = request.form['content'] # should be id of input (see index.html)
+# 		new_task = Todo(content=task_content)
+# 		try:
+# 			db.session.add(new_task)
+# 			db.session.commit()
+# 			return redirect('/', tasks=tasks)
+# 		except:
+# 			tasks = Todo.query.order_by(Todo.date_created).all() #.first(), 
+# 			return 'error adding task!'
+
+# 	else:
+# 		return render_template('index.html')
 
 
 if __name__ == "__main__":
-	app.run(debug=True)
+	app.run(debug=True,port=8000)
 
 
 
