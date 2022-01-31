@@ -36,8 +36,6 @@ def index2():
 
 #region jinja 2 (flask template) routes: mix python into html
 
-#region temp0
-temp0='temp0/index.html'
 @app.route('/', methods=['POST', 'GET'])
 def template():
 	if request.method == 'POST':
@@ -54,7 +52,7 @@ def template():
 	else:
 		#show tasks from test.db in templates/index.html
 		tasks = Todo.query.order_by(Todo.date_created).all() #.first(), 
-		return render_template(temp0, tasks=tasks)
+		return render_template('index.html', tasks=tasks)
 
 @app.route('/delete/<int:id>')
 def delete(id):
@@ -77,51 +75,9 @@ def update(id):
 		except:
 			return 'There was an issue updating your task'
 	else:
-		return render_template('temp0/update.html', task=task)
-#endregion temp0
+		return render_template('update.html', task=task)
 
-#region temp1
-@app.route('/t1', methods=['POST', 'GET'])
-def template1():
-	if request.method == 'POST':
-		#return 'Hello!' #works when click auf 'Add Task' button
-		#add posted data as new task
-		task_content = request.form['content'] # should be id of input (see index.html)
-		new_task = Todo(content=task_content)
-		try:
-			db.session.add(new_task)
-			db.session.commit()
-			return redirect('/t1')
-		except:
-			return 'error adding task!'
-	else:
-		#show tasks from test.db in templates/index.html
-		tasks = Todo.query.order_by(Todo.date_created).all() #.first(), 
-		return render_template('temp1/index.html', tasks=tasks)
 
-@app.route('/t1/delete/<int:id>')
-def delete1(id):
-	task_to_delete = Todo.query.get_or_404(id)
-	try:
-		db.session.delete(task_to_delete)
-		db.session.commit()
-		return redirect('/t1')
-	except:
-		return 'There was a problem deleting that task'
-
-@app.route('/t1/update/<int:id>', methods=['GET', 'POST'])
-def update1(id):
-	task = Todo.query.get_or_404(id)
-	if request.method == 'POST':
-		task.content = request.form['content']
-		try:
-			db.session.commit()
-			return redirect('/t1')
-		except:
-			return 'There was an issue updating your task'
-	else:
-		return render_template('temp1/update.html', task=task)
-#endregion temp1
 
 if __name__ == "__main__":
 	app.run(debug=True,port=8000)

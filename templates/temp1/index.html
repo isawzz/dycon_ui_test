@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block head %}
+{% extends 'temp1/base.html' %} {% block head %}
 <title>Task Master</title>
 {% endblock %} {% block body %}
 <div id="dMain" class="container text-center">
@@ -29,7 +29,7 @@
 	{% endif %}
 
 	<div id="dForm" class="form">
-		<form action="/" method="POST">
+		<form action="/t1" method="POST">
 			<input class='w-50' type="text" name="content" id="content" />
 			<input type="submit" value="Add Task" />
 		</form>
