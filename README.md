@@ -1,4 +1,4 @@
-current state: 
+current state: just learning... soon starting the real thing!!!
 
 - base: contains assets, js libs, js+css code (mostly not needed, I am using this for examples
 
