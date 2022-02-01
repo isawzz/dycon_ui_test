@@ -7,7 +7,7 @@
 		- open terminal: Ctrl+`
 		- >env\Scripts\activate
 
-- front: contains js and css code base. 
+- front0: contains js and css code base. 
 	- most of it not needed, but some very useful (base.js)
 	- also, index.html is a static starter file for html that loads most important files from code base
 
@@ -16,6 +16,8 @@
 - templates: jinja 2 flask templates
 	- jinja2 code allows mixing python code into html files, eg. to load data from db...
 	- css and js dirs contain file only used in templates
+
+
 
 app.py is the full flask interface with routes and database code
 

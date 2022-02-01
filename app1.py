@@ -24,13 +24,13 @@ class Todo(db.Model):
 #region static routes
 @app.route('/0')
 def index0():
-	return send_from_directory('front', 'index.html')
+	return send_from_directory('frontstatic/front0', 'index.html')
 @app.route('/1')
 def index1():
-	return send_from_directory('front1', 'index.html')
+	return send_from_directory('frontstatic/front1', 'index.html')
 @app.route('/2')
 def index2():
-	return send_from_directory('front2', 'index.html')
+	return send_from_directory('frontstatic/front2', 'index.html')
 
 #endregion
 
@@ -52,7 +52,7 @@ def template():
 	else:
 		#show tasks from test.db in templates/index.html
 		tasks = Todo.query.order_by(Todo.date_created).all() #.first(), 
-		return render_template('index.html', tasks=tasks)
+		return render_template('temp0/index.html', tasks=tasks)
 
 @app.route('/delete/<int:id>')
 def delete(id):
@@ -75,7 +75,7 @@ def update(id):
 		except:
 			return 'There was an issue updating your task'
 	else:
-		return render_template('update.html', task=task)
+		return render_template('temp0/update.html', task=task)
 
 
 

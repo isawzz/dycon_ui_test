@@ -1,0 +1,67 @@
+first time (step0 only):
+im terminal: python --version
+for python use pip install
+folder is a00/cmin
+pip install virtualenv
+virtualenv env
+env\Scripts\activate
+pip install flask flask-sqlalchemy
+
+step up: first time (create new step):
+copy last step to new step dir (eg. step2)
+(env dir should only be contained in highest step!)
+env\Scripts\activate
+modify
+
+step down: 
+copy env dir back into lower step dir
+env\Scripts\activate
+
+every time loading step project:
+env\Scripts\activate
+
+unused ___________template inheritance: (not using this! weil ich die files auch mit anderen server verwenden will)
+flask uses jinja2 for templates
+https://www.youtube.com/watch?v=Z1RJmh_OqeA
+
+unused ___________static content
+{{ url_for }} ... not using this same reason as above
+
+
+______________database sqlalchemy
+see #region in app.py
+1. creating the database
+in open interactive shell: 
+> python
+>>> from app import db
+>>> db.create_all()
+
+2. creating the ui:
+see templates dir und app.py
+
+______________push to heroku
+pip install gunicorn
+pip freeze > requirements.txt
+
+(make sure .gitignore is in place!)
+git init
+git add .
+git commit -m "initial"
+
+need ProcFile
+heroku create dyconuitest
+git push heroku master
+
+
+
+
+
+
+
+
+
+
+
+
+
+

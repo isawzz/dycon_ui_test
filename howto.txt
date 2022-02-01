@@ -1,64 +1,67 @@
-first time (step0 only):
-im terminal: python --version
-for python use pip install
-folder is a00/cmin
-pip install virtualenv
-virtualenv env
-env\Scripts\activate
-pip install flask flask-sqlalchemy
+pip install pipenv
+pipenv shell
+pipenv install flask
+pipenv install psycopg2
+pipenv install psycopg2-binary
+pipenv install flask-sqlalchemy
+pipenv install gunicorn
 
-step up: first time (create new step):
-copy last step to new step dir (eg. step2)
-(env dir should only be contained in highest step!)
-env\Scripts\activate
-modify
+________________ Postgres install from https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
+create Database in postgres 14, call it lexus
+python
+from app import db
+db.create_all()
+exit
 
-step down: 
-copy env dir back into lower step dir
-env\Scripts\activate
+________________ create local Postgres database
+Start, open pgAdmin4
 
-every time loading step project:
-env\Scripts\activate
+________________ send emails from mailtrap
+mailtrap.io
+google account
+SMTP
+Host:smtp.mailtrap.io
+Port:25 or 465 or 587 or 2525
+Username:3902b72ecc5ab7
+Password:5c350705a23f67
+Auth:PLAIN, LOGIN and CRAM-MD5
+TLS:Optional (STARTTLS on all ports)
+POP3
+Host:pop3.mailtrap.io
+Port:1100 or 9950
+Username:3902b72ecc5ab7
+Password:5c350705a23f67
+Auth:USER/PASS, PLAIN, LOGIN, APOP and CRAM-MD5
+TLS:Optional (STARTTLS on all ports)
 
-unused ___________template inheritance: (not using this! weil ich die files auch mit anderen server verwenden will)
-flask uses jinja2 for templates
-https://www.youtube.com/watch?v=Z1RJmh_OqeA
+________________ addon heroku postgres db
+heroku addons:create heroku-postgresql:hobby-dev --app pyherpost
+postgresql-deep-53287
 
-unused ___________static content
-{{ url_for }} ... not using this same reason as above
+heroku config --app pyherpost
+DATABASE_URL: postgres://emjonsyhpsrwsm:52ffe4ea7e9df56ef4a318d7100ce2604150edee57b63cc17f6b4beb94af2fd4@ec2-54-157-15-228.compute-1.amazonaws.com:5432/d17abf8v9ivuhc
 
+create requirements.txt:
+pip freeze > requirements.txt
 
-______________database sqlalchemy
-see #region in app.py
-1. creating the database
-in open interactive shell: 
-> python
+create runtime.txt: (search heroku runtime.txt): just the python version
+python-3.8.3
+
+git init
+git add .
+git commit -m 'init'
+heroku git:remote -a pyherpost
+git push heroku master
+
+create db on heroku:
+heroku run python
 >>> from app import db
 >>> db.create_all()
 
-2. creating the ui:
-see templates dir und app.py
-
-______________push to heroku
-pip install gunicorn
-pip freeze > requirements.txt
-
-(make sure .gitignore is in place!)
-git init
-git add .
-git commit -m "initial"
-
-need ProcFile
-heroku create dyconuitest
-git push heroku master
-
-
-
-
-
-
-
-
+login to heroku database:
+heroku pg:psql --app pyherpost
+pyherpost::DATABASE=> select * from feedback;
+________________ 
 
 
 

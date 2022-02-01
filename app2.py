@@ -25,13 +25,13 @@ class Todo(db.Model):
 #region static routes
 @app.route('/0')
 def index0():
-	return send_from_directory('front', 'index.html')
+	return send_from_directory('frontstatic/front0', 'index.html')
 @app.route('/1')
 def index1():
-	return send_from_directory('front1', 'index.html')
+	return send_from_directory('frontstatic/front1', 'index.html')
 @app.route('/2')
 def index2():
-	return send_from_directory('front2', 'index.html')
+	return send_from_directory('frontstatic/front2', 'index.html')
 
 #endregion
 
