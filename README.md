@@ -11,7 +11,7 @@ current state:
 - frontstatic: contains examples for static frontends (no jinja2 code)
 	- front0, front1, front2, .... alternative static routes (see routes in app.py)
 
-- templates: jinja2 flask templates (jinja2 code allows mixing python code into html files, eg. to load data from db...)
+- templates: jinja2 flask templates (jinja2: mix python code into html)
 	- temp0, temp1: use local sqlalchemy db test.db
 	- temp2: uses postgres db (if ENV='dev' need to install Postgres locally): provides heroku data persistence!!!!
 
