@@ -20,7 +20,7 @@ current state: just learning... soon starting the real thing!!!
 
 - test.db is the local database (sqlalchemy)
 
-
+=>also see howto.txt for details
 
 
 
