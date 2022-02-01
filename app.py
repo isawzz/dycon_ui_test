@@ -2,9 +2,9 @@ from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from send_mail import send_mail
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='')
 
-ENV = 'dev'
+ENV = 'prod'
 if ENV == 'dev':
 	app.debug = True
 	app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres: @localhost:5434/lexus'
