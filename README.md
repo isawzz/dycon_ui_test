@@ -6,7 +6,7 @@ current state:
 
 	- set this in vs code: 
 		- open terminal: Ctrl+`
-		- >env\Scripts\activate
+		- env\Scripts\activate
 
 - frontstatic: contains examples for static frontends (no jinja2 code)
 	- front0, front1, front2, .... alternative static routes (see routes in app.py)
