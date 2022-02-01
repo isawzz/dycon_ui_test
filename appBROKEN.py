@@ -56,22 +56,48 @@ class Feedback(db.Model):
 def mainmenu():
 	return render_template('index.html')
 
-#region example 1: todo
-@app.route('/todo')
-def todo_index():
-	return render_template('todo/index.html')
-
-@app.route('/todosubmit', methods=['POST'])
-def todo_submit():
+#region example 1: todolist
+@app.route('/todo', methods=['POST', 'GET'])
+def template():
 	if request.method == 'POST':
-		content = request.form['content']
-		print(content)
-		data = Todo(content)
-		db.session.add(data)
-		db.session.commit()
-		return render_template('todo/success.html')
+		#return 'Hello!' #works when click auf 'Add Task' button
+		#add posted data as new task
+		task_content = request.form['content'] # should be id of input (see index.html)
+		new_task = Todo(content=task_content)
+		try:
+			db.session.add(new_task)
+			db.session.commit()
+			return redirect('/todo')
+		except:
+			return 'error adding task!'
+	else:
+		#show tasks from test.db in templates/index.html
+		tasks = Todo.query.order_by(Todo.date_created).all() #.first(), 
+		return render_template('todolist/index.html', tasks=tasks)
 
-#endregion example 1: todo
+@app.route('/deltodo/<int:id>')
+def del_todo(id):
+	task_to_delete = Todo.query.get_or_404(id)
+	try:
+		db.session.delete(task_to_delete)
+		db.session.commit()
+		return redirect('/todo')
+	except:
+		return 'There was a problem deleting that task'
+
+@app.route('/uptodo/<int:id>', methods=['GET', 'POST'])
+def update(id):
+	task = Todo.query.get_or_404(id)
+	if request.method == 'POST':
+		task.content = request.form['content']
+		try:
+			db.session.commit()
+			return redirect('/todo')
+		except:
+			return 'There was an issue updating your task'
+	else:
+		return render_template('todolist/update.html', task=task)
+#endregion todolist
 
 #region example 2: car
 @app.route('/car')
