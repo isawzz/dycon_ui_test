@@ -1,4 +1,4 @@
-{% extends 'temp0/base.html' %} {% block head %}
+{% extends 'todolist/base.html' %} {% block head %}
 <title>Task Master</title>
 {% endblock %} {% block body %}
 <div id="dMain" class="container text-center">
@@ -18,9 +18,9 @@
 				<td>{{ task.content }}</td>
 				<td>{{ task.date_created.date() }}</td>
 				<td>
-					<a href="/delete/{{task.id}}">Delete</a>
+					<a href="/deltodo/{{task.id}}">Delete</a>
 					<br />
-					<a href="/update/{{task.id}}">Update</a>
+					<a href="/uptodo/{{task.id}}">Update</a>
 				</td>
 			</tr>
 			{% endfor %}

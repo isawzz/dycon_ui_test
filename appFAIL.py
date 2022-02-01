@@ -1,5 +1,4 @@
-import os
-from flask import Flask, render_template, url_for, request, send_from_directory, redirect
+from flask import Flask, render_template, request, redirect
 from send_mail import send_mail
 
 app = Flask(__name__, static_url_path='', static_folder='')
@@ -48,33 +47,20 @@ class Feedback(db.Model):
 
 #endregion
 
-#region jinja2 routes (flask template) routes: mix python into html
-
-@app.route('/')
-def mainmenu():
-	return render_template('index.html')
-
-#region example 1: todolist
 @app.route('/todo', methods=['POST', 'GET'])
-def template():
+def todo_index():
 	if request.method == 'POST':
-		#return 'Hello!' #works when click auf 'Add Task' button
-		#add posted data as new task
-		task_content = request.form['content'] # should be id of input (see index.html)
-		new_task = Todo(content=task_content)
-		try:
-			db.session.add(new_task)
-			db.session.commit()
-			return redirect('/todo')
-		except:
-			return 'error adding task!'
+		content = request.form['content']
+		data = Todo(content)
+		db.session.add(data)
+		db.session.commit()
+		return redirect('/todo')
 	else:
-		#show tasks from test.db in templates/index.html
-		tasks = Todo.query.order_by(Todo.date_created).all() #.first(), 
-		return render_template('todolist/index.html', tasks=tasks)
+		tasks = db.session.query(Todo).all()
+		return render_template('ex1_todo/index.html',tasks=tasks)
 
-@app.route('/deltodo/<int:id>')
-def del_todo(id):
+@app.route('/todo/delete/<int:id>')
+def todo_delete(id):
 	task_to_delete = Todo.query.get_or_404(id)
 	try:
 		db.session.delete(task_to_delete)
@@ -83,8 +69,8 @@ def del_todo(id):
 	except:
 		return 'There was a problem deleting that task'
 
-@app.route('/uptodo/<int:id>', methods=['GET', 'POST'])
-def update(id):
+@app.route('/todo/update/<int:id>', methods=['GET', 'POST'])
+def todo_update(id):
 	task = Todo.query.get_or_404(id)
 	if request.method == 'POST':
 		task.content = request.form['content']
@@ -94,15 +80,15 @@ def update(id):
 		except:
 			return 'There was an issue updating your task'
 	else:
-		return render_template('todolist/update.html', task=task)
-#endregion todolist
+		return render_template('ex1_todo/update.html', task=task)
+#endregion example 1: todo list
 
-#region example 2: car
+#region example 2: car dealer feedback
 @app.route('/car')
 def car_index():
-	return render_template('car/index.html')
+	return render_template('temp2/index.html')
 
-@app.route('/carsubmit', methods=['POST'])
+@app.route('/car/submit', methods=['POST'])
 def car_submit():
 	if request.method == 'POST':
 		customer = request.form['customer']
@@ -111,41 +97,16 @@ def car_submit():
 		comments = request.form['comments']
 		print(customer, dealer, rating, comments)
 		if customer == '' or dealer == '':
-			return render_template('car/index.html', message='Please enter required fields')
+			return render_template('temp2/index.html', message='Please enter required fields')
 		if db.session.query(Feedback).filter(Feedback.customer == customer).count() == 0:
 			data = Feedback(customer, dealer, rating, comments)
 			db.session.add(data)
 			db.session.commit()
 			send_mail(customer, dealer, rating, comments)
-			return render_template('car/success.html')
-		return render_template('car/index.html', message='You have already submitted feedback')
+			return render_template('temp2/success.html')
+		return render_template('temp2/index.html', message='You have already submitted feedback')
 #endregion example 2: card dealer feedback
-#endregion
-
-#region static routes
-@app.route('/0')
-def index0():
-	return send_from_directory('frontstatic/front0', 'index.html')
-@app.route('/1')
-def index1():
-	return send_from_directory('frontstatic/front1', 'index.html')
-@app.route('/2')
-def index2():
-	return send_from_directory('frontstatic/front2', 'index.html')
-
-#endregion
-
-if __name__ == "__main__":
-	app.run(debug=True,port=8000)
 
 
-
-
-
-
-
-
-
-
-
-
+if __name__ == '__main__':
+	app.run()
