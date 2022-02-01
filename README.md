@@ -22,6 +22,10 @@ current state: just learning... soon starting the real thing!!!
 
 =>also see howto.txt for details
 
+=>recommended tutorials:
+- https://www.youtube.com/watch?v=Z1RJmh_OqeA
+- https://www.youtube.com/watch?v=w25ea_I89iM
+
 
 
 
