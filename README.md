@@ -3,14 +3,15 @@ current state:
 - base: contains assets, js libs, js+css code (mostly not needed, I am using this for examples
 
 - env: python virtual environment: =>recreate from requirements.txt
-	set this in vs code: 
+
+	- set this in vs code: 
 		- open terminal: Ctrl+`
 		- >env\Scripts\activate
 
-- frontstatic: contains examples for static frontends (no ninja2 code)
+- frontstatic: contains examples for static frontends (no jinja2 code)
 	- front0, front1, front2, .... alternative static routes (see routes in app.py)
 
-- templates: jinja 2 flask templates (jinja2 code allows mixing python code into html files, eg. to load data from db...)
+- templates: jinja2 flask templates (jinja2 code allows mixing python code into html files, eg. to load data from db...)
 	- temp0, temp1: use local sqlalchemy db test.db
 	- temp2: uses postgres db (if ENV='dev' need to install Postgres locally): provides heroku data persistence!!!!
 
