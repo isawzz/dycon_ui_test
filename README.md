@@ -1,27 +1,24 @@
-1. directory structure:
+current state: 
 
-- base: contains lots of assets most of which not needed, and 3rd party javascript libs in alibs
+- base: contains assets, js libs, js+css code (mostly not needed, I am using this for examples
 
-- env: python virtual environment: 
+- env: python virtual environment: =>recreate from requirements.txt
 	set this in vs code: 
 		- open terminal: Ctrl+`
 		- >env\Scripts\activate
 
-- front0: contains js and css code base. 
-	- most of it not needed, but some very useful (base.js)
-	- also, index.html is a static starter file for html that loads most important files from code base
+- frontstatic: contains examples for static frontends (no ninja2 code)
+	- front0, front1, front2, .... alternative static routes (see routes in app.py)
 
-- front1, front2, .... alternative static routes (see routes in app.py)
+- templates: jinja 2 flask templates (jinja2 code allows mixing python code into html files, eg. to load data from db...)
+	- temp0, temp1: use local sqlalchemy db test.db
+	- temp2: uses postgres db (if ENV='dev' need to install Postgres locally): provides heroku data persistence!!!!
 
-- templates: jinja 2 flask templates
-	- jinja2 code allows mixing python code into html files, eg. to load data from db...
-	- css and js dirs contain file only used in templates
+- app.py is the newest flask interface, currently routing to temp2 example (works on heroku) 
+	- app0, app1, ... previous flask apps for fraontstatic examples and temp0/1 examples
 
+- test.db is the local database (sqlalchemy)
 
-
-app.py is the full flask interface with routes and database code
-
-test.db is the database (sqlalchemy)
 
 
 
