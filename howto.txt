@@ -35,10 +35,10 @@ Auth:USER/PASS, PLAIN, LOGIN, APOP and CRAM-MD5
 TLS:Optional (STARTTLS on all ports)
 
 ________________ addon heroku postgres db
-heroku addons:create heroku-postgresql:hobby-dev --app pyherpost
+heroku addons:create heroku-postgresql:hobby-dev --app dyconuitest
 postgresql-deep-53287
 
-heroku config --app pyherpost
+heroku config --app dyconuitest
 DATABASE_URL: postgres://emjonsyhpsrwsm:52ffe4ea7e9df56ef4a318d7100ce2604150edee57b63cc17f6b4beb94af2fd4@ec2-54-157-15-228.compute-1.amazonaws.com:5432/d17abf8v9ivuhc
 
 create requirements.txt:
@@ -50,7 +50,7 @@ python-3.8.3
 git init
 git add .
 git commit -m 'init'
-heroku git:remote -a pyherpost
+heroku git:remote -a dyconuitest
 git push heroku master
 
 create db on heroku:
@@ -59,8 +59,8 @@ heroku run python
 >>> db.create_all()
 
 login to heroku database:
-heroku pg:psql --app pyherpost
-pyherpost::DATABASE=> select * from feedback;
+heroku pg:psql --app dyconuitest
+dyconuitest::DATABASE=> select * from feedback;
 ________________ 
 
 
