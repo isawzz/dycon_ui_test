@@ -12,7 +12,7 @@ current state: just learning... soon starting the real thing!!!
 	- front0, front1, front2, .... alternative static routes (see routes in app.py)
 
 - templates: jinja2 flask templates (jinja2: mix python code into html)
-	[unused] - temp0, temp1: use local sqlalchemy db test.db 
+	- [unused] temp0, temp1: use local sqlalchemy db test.db 
 	- todo, car: uses postgres db:
 		- to run locally: in app.py set ENV='dev' (needs local Postgres installation)
 		- run on heroku: in app.py set ENV='prod' (is persistent!!!!)
