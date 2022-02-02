@@ -8,7 +8,7 @@ app = Flask(__name__, static_url_path='', static_folder='')
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
-ENV = 'dev' #prod to run on Heroku, dev to run locally (needs Postgres installed for / routes)
+ENV = 'prod' #prod to run on Heroku, dev to run locally (needs Postgres installed for / routes)
 if ENV == 'dev':
 	app.debug = True
 	app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres: @localhost:5434/lexus'
