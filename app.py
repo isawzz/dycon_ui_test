@@ -4,11 +4,11 @@ from send_mail import send_mail
 
 app = Flask(__name__, static_url_path='', static_folder='')
 
-#region database
+#region database config
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
-ENV = 'prod' #prod to run on Heroku, dev to run locally (needs Postgres installed for / routes)
+ENV = 'dev' #prod to run on Heroku, dev to run locally (needs Postgres installed for / routes)
 if ENV == 'dev':
 	app.debug = True
 	app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres: @localhost:5434/lexus'
@@ -21,7 +21,9 @@ else:
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+#endregion
 
+#region database models
 class Todo(db.Model):
 	__tablename__ = 'todo'
 	id = db.Column(db.Integer, primary_key=True)
@@ -59,17 +61,44 @@ def mainmenu():
 #region example 1: todo
 @app.route('/todo')
 def todo_index():
-	return render_template('todo/index.html')
+	tasks = Todo.query.order_by(Todo.date_created).all() #.first(), 
+	return render_template('todo/index.html', tasks=tasks)
+	# return render_template('todo/index.html')
 
 @app.route('/todosubmit', methods=['POST'])
 def todo_submit():
 	if request.method == 'POST':
 		content = request.form['content']
-		print(content)
+		print('......',content)
 		data = Todo(content)
 		db.session.add(data)
 		db.session.commit()
-		return render_template('todo/success.html')
+		return redirect('/todo') 
+
+@app.route('/deltodo/<int:id>')
+def del_todo(id):
+	task_to_delete = Todo.query.get_or_404(id)
+	try:
+		db.session.delete(task_to_delete)
+		db.session.commit()
+		return redirect('/todo')
+	except:
+		return 'There was a problem deleting that task'
+
+@app.route('/uptodo/<int:id>', methods=['GET', 'POST'])
+def update(id):
+	task = Todo.query.get_or_404(id)
+	if request.method == 'POST':
+		content = request.form['content']
+		print('......',content)
+		task.content = content
+		try:
+			db.session.commit()
+			return redirect('/todo')
+		except:
+			return 'There was an issue updating your task'
+	else:
+		return render_template('todo/update.html', task=task)
 
 #endregion example 1: todo
 
