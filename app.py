@@ -1,20 +1,20 @@
 import os
 from flask import Flask, render_template, url_for, request, send_from_directory, redirect
 from send_mail import send_mail
+from utils import *
 
 app = Flask(__name__, static_url_path='', static_folder='')
+ENV = 'prod' #prod to run on Heroku, dev to run locally (needs Postgres installed for / routes)
 
 #region database config
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
-ENV = 'prod' #prod to run on Heroku, dev to run locally (needs Postgres installed for / routes)
 if ENV == 'dev':
 	app.debug = True
 	app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres: @localhost:5434/lexus'
 else:
 	app.debug = False
-	s0='postgresql://emjonsyhpsrwsm:52ffe4ea7e9df56ef4a318d7100ce2604150edee57b63cc17f6b4beb94af2fd4@ec2-54-157-15-228.compute-1.amazonaws.com:5432/d17abf8v9ivuhc'
 	s1='postgresql://yrvygqeoxvvsbc:a1626c4355cc68f0e885cdd1a136d47b05f0a1dbc13c3b48e591663c3be1abae@ec2-54-145-9-12.compute-1.amazonaws.com:5432/d82a71hp3riqvf'
 	app.config['SQLALCHEMY_DATABASE_URI'] = s1
 
@@ -23,7 +23,26 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 #endregion
 
+#region login config
+from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user, login_required
+
+app.config['SECRET_KEY'] = 'IJustHopeThisWorks!' #do I need this???
+login_manager = LoginManager(app)
+
+usersLoggedIn = []
+#endregion
+
 #region database models
+
+class User(UserMixin, db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(30), unique=True)
+	stars = db.Column(db.Integer, default=0)
+	follows = db.Column(db.String(200), default='')
+	followers = db.Column(db.String(200), default='')
+	def __init__(self, name):
+		self.name = name
+
 class Todo(db.Model):
 	__tablename__ = 'todo'
 	id = db.Column(db.Integer, primary_key=True)
@@ -52,7 +71,105 @@ class Feedback(db.Model):
 
 #endregion
 
-#region jinja2 routes (flask template) routes: mix python into html
+#region functions
+def db_update_following(user):
+	#here need to update the following info for each other user in db!!!!
+	flist = string_to_arr(user.follows)
+	user.follows = arr_to_string(flist)
+	users = User.query.order_by(User.name).all() 
+	for u in users:
+		if u.name == user.name: continue
+		followers = string_to_arr(u.followers)
+		print('===>followers:', followers)
+		if u.name in flist and user.name not in followers: #make sure user.name is in u.following
+			followers.append(user.name)
+		elif u.name not in flist and user.name in followers: #make sure user.name is NOT in u.following
+			followers.remove(user.name)
+		u.followers = arr_to_string(followers)
+
+def db_remove_following(user):
+	#this user is removed
+	follows = string_to_arr(user.follows)
+	followers = string_to_arr(user.follows)
+	users = User.query.order_by(User.name).all() 
+	for u in users:
+		if u.name == user.name: continue
+		follows2 = string_to_arr(u.follows)
+		followers2 = string_to_arr(u.followers)
+		if user.name in followers2: #make sure user.name is in u.following
+			followers2.remove(user.name)
+		if user.name in follows2: #make sure user.name is in u.following
+			follows2.remove(user.name)
+		u.followers = arr_to_string(followers2)
+		u.follows = arr_to_string(follows2)
+
+def get_user(name):
+	return User.query.filter_by(name=name).first()
+
+def get_followers(name): #get list of name's followers
+	user = get_user(name)
+	return user.followers.split(',')
+
+def get_follows(name): #get list of names name is following
+	user = get_user(name)
+	return user.follows.split(',')
+
+def add_following(name1,name2): #name1 follows name2
+	u1 = get_user(name1)
+	u2 = get_user(name2)
+	#need to do the following:
+	u1_follows = get_follows(name1)
+	u2_followers = get_followers(name2)
+	addif(u1_follows,name2)
+	addif(u2_followers,name1)
+	db.commit()
+	#add name2 to u1.follows if not there
+	#add name1 to u2.followers if not there
+
+#endregion
+
+#region login routes
+@login_manager.user_loader
+def load_user(user_id):
+	return User.query.get(int(user_id))
+
+@app.route('/logintest')
+def defaultLogin():
+	return redirect('/login/felix')
+
+@app.route('/login/<name>')
+def login(name):
+	user = User.query.filter_by(name=name).first()
+	print('...trying to login',user)
+	if not user and ENV == 'dev':
+		print('adding new user:',name)
+		user = User(name)
+		db.session.add(user)
+		db.session.commit()
+	if not user:
+		return 'not authorized: ' + name
+	if name in usersLoggedIn:
+		return name + ' already logged in in another window!'
+	usersLoggedIn.append(name)
+	login_user(user)
+	print('===>logged in as', name, usersLoggedIn)
+	return name
+
+@app.route('/logout/<name>')
+@login_required
+def logout(name):
+	if not name in usersLoggedIn:
+		print(name, 'not in usersLoggedIn!!!!!')
+	else:
+		usersLoggedIn.remove(name)
+	logout_user()
+	print('logged out', name, usersLoggedIn, '................')
+	return name + ', you are logged out!'
+
+
+#endregion
+
+#region jinja2 routes (uses render_template => see templates dir) routes: mix python into html
 
 @app.route('/')
 def mainmenu():
@@ -86,7 +203,7 @@ def del_todo(id):
 		return 'There was a problem deleting that task'
 
 @app.route('/uptodo/<int:id>', methods=['GET', 'POST'])
-def update(id):
+def up_todo(id):
 	task = Todo.query.get_or_404(id)
 	if request.method == 'POST':
 		content = request.form['content']
@@ -125,6 +242,68 @@ def car_submit():
 			return render_template('car/success.html')
 		return render_template('car/index.html', message='You have already submitted feedback')
 #endregion example 2: card dealer feedback
+
+#region example 3: user
+@app.route('/user')
+def user_index():
+	users = User.query.order_by(User.name).all() #.first(), 
+	return render_template('user/index.html', users=users)
+	#return render_template('user/index.html')
+
+@app.route('/usersubmit', methods=['POST'])
+def user_submit():
+	if request.method == 'POST':
+		name = request.form['name']
+		print('......',name)
+		data = User(name)
+		db.session.add(data)
+		db.session.commit()
+		return redirect('/user') 
+
+@app.route('/deluser/<int:id>')
+def del_user(id):
+	print('delete user',id)
+	#return f'delete user {id}' #redirect('/user')
+	user = User.query.get_or_404(id)
+	db_remove_following(user)
+	try:
+		
+		#user.follows = ''
+		#user.followers = ''
+		if user.name in usersLoggedIn: 
+			if user.is_active: logout_user(user)
+			usersLoggedIn.remove(user.name)
+		db.session.delete(user)
+		db.session.commit()
+		return redirect('/user')
+	except:
+		return 'There was a problem deleting that user'
+
+@app.route('/upuser/<int:id>', methods=['GET', 'POST'])
+def up_user(id):
+	user = User.query.get_or_404(id)
+	if request.method == 'POST':
+		follows = request.form['follows']
+		print('......',follows)
+		user.follows = follows
+		db_update_following(user)
+		try:
+			db.session.commit()
+			return redirect('/user')
+		except:
+			return 'There was an issue updating your user'
+	else:
+		return render_template('user/update.html', user=user)
+
+#endregion
+
+#region example 4: reddit
+@app.route('/redd')
+def redd_index():
+	return 'hello world'
+
+#endregion
+
 #endregion
 
 #region static routes
@@ -141,7 +320,7 @@ def index2():
 #endregion
 
 if __name__ == "__main__":
-	app.run(debug=True,port=8000)
+	app.run(debug = True, port = 8181)
 
 
 
