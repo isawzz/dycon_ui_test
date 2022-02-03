@@ -9,5 +9,3 @@ _codeRemoved
 __pycache__/
 saves/
 *.pyc
-base/
-front/
