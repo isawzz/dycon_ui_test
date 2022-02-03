@@ -1,20 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" href="../base/assets/images/icons/petitchat.png" />
-		<link rel="stylesheet" href="../base/assets/fonts/fonts.css" />
-		<link
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-			rel="stylesheet"
-			integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-			crossorigin="anonymous"
-		/>
-		<title>update form</title>
-	</head>
-	<body style="font-family: opensans">
+{% extends 'base.html' %}
+<!-- hier kommt head -->
+{% block icon_title %}
+<link rel="icon" href="../templates/todo/logo.png" />
+<title>step 4: update</title>
+{% endblock %}
+<!-- hier kommt body -->
+{% block content %}
 		<div class="container text-center">
 			<img src="../templates/todo/logo.png" alt="Lexus" class="logo" />
 		</div>
@@ -28,5 +19,4 @@
 				</form>
 			</div>
 		</div>
-	</body>
-</html>
+		{% endblock %}

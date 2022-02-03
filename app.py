@@ -176,7 +176,7 @@ def logout(name):
 
 @app.route('/')
 def mainmenu():
-	return render_template('index.html')
+	return redirect('/user')
 
 #region example 1: todo
 @app.route('/todo')
@@ -270,9 +270,6 @@ def del_user(id):
 	user = User.query.get_or_404(id)
 	db_remove_following(user)
 	try:
-		
-		#user.follows = ''
-		#user.followers = ''
 		if user.name in usersLoggedIn: 
 			if user.is_active: logout_user(user)
 			usersLoggedIn.remove(user.name)
