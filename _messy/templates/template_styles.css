@@ -1,0 +1,26 @@
+.topmenu{
+	background: silver;
+	color: dimgrey;
+	padding: 4px 10px;
+}
+.topbar{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 4px;
+	background: navy;
+	color: white;
+	/* font-size: 22px; */
+	height: 44px;
+}
+.logo{
+	height:90%;
+}
+.searchinput{
+	background: transparent;
+	color: silver;
+	border: none;
+	box-sizing: border-box;
+	margin: 2px;
+}

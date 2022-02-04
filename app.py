@@ -176,7 +176,7 @@ def logout(name):
 
 @app.route('/')
 def mainmenu():
-	return redirect('/user')
+	return redirect('/consens')
 
 #region example 1: todo
 @app.route('/todo')
@@ -297,10 +297,24 @@ def up_user(id):
 
 #endregion
 
-#region example 4: reddit
-@app.route('/redd')
-def redd_index():
-	return 'hello world'
+#region example 4: consens
+@app.route('/consens')
+def consens_index():
+	print(request)
+	return render_template('consens/index.html')
+@app.route('/consens/link1')
+def consens_link1():
+	return render_template('consens/link1.html')
+@app.route('/consens/link2')
+def consens_link2():
+	return render_template('consens/link2.html')
+@app.route('/consens/link3')
+def consens_link3():
+	return render_template('consens/link3.html')
+
+@app.route('/c1search')
+def consens_search():
+	return 'hallo'
 
 #endregion
 

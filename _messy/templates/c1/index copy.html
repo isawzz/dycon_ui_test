@@ -1,0 +1,27 @@
+{% extends 'base4.html' %}
+<!-- hier kommt head -->
+{% block icon_title %}
+<link rel="icon" href="../templates/c1/logo.png" />
+<title>step 4: c1</title>
+{% endblock %}
+<!-- hier kommt body -->
+{% block content %}
+<nav class="navbar navbar-light bg-light ">
+	<span class="navbar">
+		<a class="navbar-brand" href="/c1"><img height=40 src="../templates/c1/logo.png"></a>
+		<a class="nav-link" href="/c1/link1">Link1</a>
+		<a class="nav-link" href="#">Link2</a>
+		<a class="nav-link" href="#">Link3</a>
+		<!-- <a class="nav-link disabled" href="#">Disabled</a> -->
+	</span>
+	<form class="form-inline my-2 my-lg-0" style="min-width:400px;" >
+		<input class="form-control mr-sm-2 w-75" type="search" placeholder="Search" aria-label="Search" />
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+	</form>
+</nav>
+<div class="container">
+	{% if message %}
+	<p class="message">{{ message | safe }}</p>
+	{% endif %}
+</div>
+{% endblock %}

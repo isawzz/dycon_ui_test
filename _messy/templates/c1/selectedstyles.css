@@ -1,0 +1,73 @@
+
+.mini_menu_left {
+	display: flex;
+	position: absolute;
+	left: 20px;
+	top: 0px;
+	min-width: 120px;
+	height: 100%;
+	font-size: 16px;
+	font-family: opensans;
+	align-items: center;
+	gap: 8px;
+	
+}
+.mybutton {
+	margin-left: 4px;
+	box-sizing: border-box;
+	padding: 4px 14px;
+	cursor: pointer;
+	border-radius: 6px;
+	outline: none;
+	border: none;
+	background: #000000A0;
+	color: white;
+}
+.mybutton:hover {
+	outline: none;
+	border: none;
+	filter: brightness(1.3);
+	background: #00000060;
+}
+.mybutton:active {
+	outline: none;
+	border: none;
+	/* filter: hue-rotate(60deg); */
+	filter: brightness(2);
+	background: #000000C0;
+}
+.mybutton:focus {
+	outline: none;
+	border: none;
+}
+/* .loader_on {
+	position: absolute;
+	width: 30px;
+	left: 130px;
+}
+.loader_off,
+.invisible {
+	display: none;
+}
+#mini_menu_right {
+	position: absolute;
+	right: 10px;
+	top: 0px;
+	height: 100%;
+	
+}
+#user_info {
+	transition: all 1s ease;
+}
+#bSidebarWeg {
+	position: absolute;
+	right: 10px;
+	top: 26px;
+	width: 20px;
+	font-size: 16px;
+	border: none;
+	background: transparent;
+	color: white;
+	outline: none;
+	cursor: pointer;
+} */
