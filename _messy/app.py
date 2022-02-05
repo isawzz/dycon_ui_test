@@ -168,28 +168,21 @@ def login(name):
 	print('===>logged in as', name, usersLoggedIn)
 	return redirect('/') #name
 
-@app.route('/logout')
+@app.route('/logout/<name>')
 @login_required
-def logout():
-	name = 'amanda'
-	if name in usersLoggedIn: usersLoggedIn.remove(name)
+def logout(name):
+	if not name in usersLoggedIn:
+		print(name, 'not in usersLoggedIn!!!!!')
+	else:
+		usersLoggedIn.remove(name)
 	logout_user()
 	print('logged out', name, usersLoggedIn, '................')
 	return redirect('/') #name + ', you are logged out!'
 
-# @app.route('/logout/<name>')
-# @login_required
-# def logout(name):
-# 	if not name in usersLoggedIn:
-# 		print(name, 'not in usersLoggedIn!!!!!')
-# 	else:
-# 		usersLoggedIn.remove(name)
-# 	logout_user()
-# 	print('logged out', name, usersLoggedIn, '................')
-# 	return redirect('/') #name + ', you are logged out!'
-
 
 #endregion
+
+#region jinja2 routes (uses render_template => see templates dir) routes: mix python into html
 
 @app.route('/')
 def mainmenu():
@@ -338,13 +331,11 @@ def consens_search():
 #region example 5: dash
 @app.route('/dash')
 def dash_index():
-	if current_user.is_authenticated:
-		#print('YES!!!!!!!!!!!!!!!')
-		return render_template('dash/index.html',user=current_user.name)
-	else: 
-		#print('nooooo!!!!!!!!!!!!!!!')
-		return render_template('dash/index.html')
+	print(request)
+	return render_template('dash/index.html')
 
+
+#endregion
 
 #endregion
 
