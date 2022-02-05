@@ -1,24 +1,25 @@
 {% extends 'base.html' %}
 <!-- hier kommt head -->
 {% block icon_title %}
-<link href="../templates/dash/dashboard.css" rel="stylesheet" />
+<link href="../templates/dash/dashboard.css" rel="stylesheet">
 <link rel="icon" href="../templates/dash/logo.jpg" />
 <title>step 4: dash</title>
 {% endblock %}
 <!-- hier kommt body -->
 {% block content %}
 <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-0">
-	<a class="navbar-brand col-sm-3 col-md-2 m-0"  href="#">
-		<img class="filtertest" style="margin-top:-5px;height:25px;border-radius:50%" src="../templates/consens/group.png" />		
-		<!-- <img style="margin-top:-5px;height:22px;border-radius:50%" src="../templates/dash/logo.jpg" alt="" /> -->
-		<span style="margin-left:10px">Consensus</span></a>
+	<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Consensus Modi</a>
 	<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search" />
-	{% if user %}
-	<a class="nav-link hop text-white" href="/user">{{ user }}</a>
-	<a class="nav-link hop text-white" href="/logout">logout</a>
-	{% else %}
-	<a class="nav-link hop text-white" href="/loginform">login</a>
-	{% endif %}
+	<ul class="navbar-nav px-3">
+		<li class="nav-item text-nowrap">
+			{% if user %}
+			<a class="nav-link" href="/user">{{ user }}</a>
+			<a class="nav-link" href="/logout">Logout</a>
+			{% else %}
+			<a class="nav-link" href="/loginform">Login</a>
+			{% endif %}
+		</li>
+	</ul>
 </nav>
 
 <div class="container-fluid">

@@ -193,7 +193,7 @@ def logout():
 
 @app.route('/')
 def mainmenu():
-	return redirect('/dash')
+	return redirect('/mydash')
 
 #region example 1: todo
 @app.route('/todo')
@@ -344,6 +344,19 @@ def dash_index():
 	else: 
 		#print('nooooo!!!!!!!!!!!!!!!')
 		return render_template('dash/index.html')
+
+
+#endregion
+
+#region example 5: dash
+@app.route('/mydash')
+def mydash_index():
+	if current_user.is_authenticated:
+		#print('YES!!!!!!!!!!!!!!!')
+		return render_template('mydash/index.html',user=current_user.name)
+	else: 
+		#print('nooooo!!!!!!!!!!!!!!!')
+		return render_template('mydash/index.html')
 
 
 #endregion

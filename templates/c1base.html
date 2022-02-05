@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 <!-- hier kommt head -->
-{% block icon_title %}
-{% block consensus_icon_title %} {% endblock %}
-{% endblock %}
+{% block icon_title %} {% block consensus_icon_title %} {% endblock %} {% endblock %}
 <!-- hier kommt body -->
 {% block content %}
 <nav class="navbar navbar-light bg-light">
 	<span class="navbar">
-		<a class="navbar-brand" href="/"><img height="40" src="../templates/consens/logo.png" /></a>
+		<a class="navbar-brand" href="/">
+			<img height=40 src="../templates/consens/group.png" />
+		</a>
 		<a class="nav-link" href="/consens/link1">Link1</a>
 		<a class="nav-link" href="/consens/link2">Link2</a>
 		<a class="nav-link" href="/consens/link3">Link3</a>
@@ -24,5 +24,4 @@
 	{% endif %}
 </div>
 
-{% block consensus_content %} {% endblock %}
-{% endblock %}
+{% block consensus_content %} {% endblock %} {% endblock %}

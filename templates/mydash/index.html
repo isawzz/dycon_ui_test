@@ -1,7 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'baseplus.html' %}
 <!-- hier kommt head -->
 {% block icon_title %}
-<link href="../templates/dash/dashboard.css" rel="stylesheet" />
+<link href="../templates/mydash/dashboard.css" rel="stylesheet" />
 <link rel="icon" href="../templates/dash/logo.jpg" />
 <title>step 4: dash</title>
 {% endblock %}
@@ -11,7 +11,7 @@
 	<a class="navbar-brand col-sm-3 col-md-2 m-0"  href="#">
 		<img class="filtertest" style="margin-top:-5px;height:25px;border-radius:50%" src="../templates/consens/group.png" />		
 		<!-- <img style="margin-top:-5px;height:22px;border-radius:50%" src="../templates/dash/logo.jpg" alt="" /> -->
-		<span style="margin-left:10px">Consensus</span></a>
+		<span style="margin-left:5px">Consensus</span></a>
 	<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search" />
 	{% if user %}
 	<a class="nav-link hop text-white" href="/user">{{ user }}</a>
@@ -248,9 +248,10 @@
 		</main>
 	</div>
 </div>
+{% endblock %}
+<!-- hier sind script includes -->
+{% block contentplus %}
 
-<script src="../base/alibs/jq3.js"></script>
-<script src="../base/alibs/bs4/bootstrap.bundle.min.js"></script>
 
 <!-- Icons -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
@@ -261,6 +262,7 @@
 <!-- Graphs -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script>
+	//document.body.style.transition = "opacity 2s ease";
 	var ctx = document.getElementById('myChart');
 	var myChart = new Chart(ctx, {
 		type: 'line',
