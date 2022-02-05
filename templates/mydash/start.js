@@ -2,6 +2,7 @@ window.onload = start; //start_testing | start
 async function start() {
 	
 	//load assets
+	document.body.style.opacity=1;
 
 	Syms = await route_path_yaml_dict('../base/assets/allSyms.yaml');
 	SymKeys = Object.keys(Syms);
@@ -20,7 +21,6 @@ async function start() {
 
 	Session.cur_user = valf(queryStringToJson().user, 'guest');
 	G=Session;
-	document.body.style.opacity=1;
 	
 
 }
