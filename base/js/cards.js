@@ -135,7 +135,7 @@ function inno_card(dParent, keyOrName) {
 
 		let box = mBoxFromMargins(dMain, 10, margin, sz + margin, sz + 2 * margin); //,{bg:'grey',alpha:.5, rounding:10});
 		//console.log('box',box);
-		mStyleX(box, { align: 'left' });
+		mStyle(box, { align: 'left' });
 		let text = '';
 		for (const dog of cardInfo.dogmas) {
 			//console.log('text', cardInfo.type, sym);
@@ -200,7 +200,7 @@ function inno_card_fixed_font(dParent, keyOrName) {
 	}
 	let box = mBoxFromMargins(dMain, 10, margin, sz + margin, sz + 2 * margin); //,{bg:'grey',alpha:.5, rounding:10});
 	console.log('box', box);
-	mStyleX(box, { align: 'left', padding: 4 });
+	mStyle(box, { align: 'left', padding: 4 });
 	let text = '';
 	for (const dog of cardInfo.dogmas) {
 		//console.log('text', cardInfo.type, sym);
@@ -678,7 +678,7 @@ function draw_set_card(dParent, info, card_styles) {
 		)`; break;
 
 	}
-	mStyleX(d, { bg: info.background });
+	mStyle(d, { bg: info.background });
 	switch (info.text) {
 		case 'none': text = null; break;
 		case 'letter': text = randomLetter(); break;
@@ -687,7 +687,7 @@ function draw_set_card(dParent, info, card_styles) {
 	let styles = { w: sz, h: sz, margin: sz / 10 };
 	for (let i = 0; i < info.num; i++) {
 		let d1 = drawShape(shape, d, styles);
-		if (info.shading == 'gradient') { d1.style.backgroundColor = info.color; mClass(d1, 'polka-dot'); } else mStyleX(d1, { bg: bg });
+		if (info.shading == 'gradient') { d1.style.backgroundColor = info.color; mClass(d1, 'polka-dot'); } else mStyle(d1, { bg: bg });
 		if (shape == 'circle') console.log('circle', d1);
 		if (isdef(text)) { mCenterCenterFlex(d1); mText(text, d1, { fz: sz / 1.75, fg: 'black', family: 'impact' }); }
 	}
@@ -852,11 +852,11 @@ function mItemSplay(item, list, splay, ov = .5) {
 	let idx = list.indexOf(item.key);
 	if (splay == 4) {
 		let offset = (list.length - idx) * ov;
-		mStyleX(d, { position: 'absolute', left: offset, top: offset }); //,z:list.length - idx});
+		mStyle(d, { position: 'absolute', left: offset, top: offset }); //,z:list.length - idx});
 		d.style.zIndex = list.length - idx;
 	} else if (splay == 4) {
 		let offset = idx * ov; //(list.length-idx)*ov;
-		mStyleX(d, { position: 'absolute', left: offset, top: offset });
+		mStyle(d, { position: 'absolute', left: offset, top: offset });
 	} else {
 		d.style.zIndex = splay != 2 ? list.length - idx : 0;
 	}
@@ -923,7 +923,7 @@ function cTitleArea(card, h, styles, classes) {
 	let dTitle = mDiv(dCard, { w: '100%', h: h, overflow: 'hidden', upperRounding: card.rounding });
 	let dMain = mDiv(dCard, { w: '100%', h: card.h - h, lowerRounding: card.rounding });
 	iAdd(card, { dTitle: dTitle, dMain: dMain });
-	if (isdef(styles)) mStyleX(dTitle, styles);
+	if (isdef(styles)) mStyle(dTitle, styles);
 	return [dTitle, dMain];
 
 }
@@ -1002,9 +1002,9 @@ function mPlaceText(text, where, dParent, styles, innerStyles, classes) {
 		w: w, h: h, fz: fz,
 		position: 'absolute', transform: 'translate(-50%,-50%)', top: '50%', left: '50%'
 	}, null, text);
-	if (isdef(styles)) mStyleX(box, styles);
-	if (isdef(innerStyles)) mStyleX(dText, innerStyles);
-	if (isdef(classes)) mStyleX(box, classes);
+	if (isdef(styles)) mStyle(box, styles);
+	if (isdef(innerStyles)) mStyle(dText, innerStyles);
+	if (isdef(classes)) mStyle(box, classes);
 	return box;
 }
 
@@ -1020,9 +1020,9 @@ function mFillText(text, box, padding = 10) {
 		w: w, h: h, fz: fz,
 		position: 'absolute', transform: 'translate(-50%,-50%)', top: '50%', left: '50%'
 	}, null, text);
-	//if (isdef(styles)) mStyleX(box,styles);
-	//if (isdef(innerStyles)) mStyleX(dText,innerStyles);
-	//if (isdef(classes)) mStyleX(box,classes);
+	//if (isdef(styles)) mStyle(box,styles);
+	//if (isdef(innerStyles)) mStyle(dText,innerStyles);
+	//if (isdef(classes)) mStyle(box,classes);
 	return dText;
 
 }
@@ -1039,19 +1039,19 @@ function mFillText(text, box, padding = 10, perleft = 10, pertop = 20) {
 		w: w, h: h, fz: fz,
 		position: 'absolute', transform: `translate(-${perleft}%,-${pertop}%)`, top: `${pertop}%`, left: `${perleft}%`
 	}, null, text);
-	//if (isdef(styles)) mStyleX(box,styles);
-	//if (isdef(innerStyles)) mStyleX(dText,innerStyles);
-	//if (isdef(classes)) mStyleX(box,classes);
+	//if (isdef(styles)) mStyle(box,styles);
+	//if (isdef(innerStyles)) mStyle(dText,innerStyles);
+	//if (isdef(classes)) mStyle(box,classes);
 	return dText;
 
 }
 
 function mRowsX(dParent, arr, itemStyles = { bg: 'random' }, rowStyles, colStyles, akku) {
 
-	//mStyleX(dParent,{h:500});
+	//mStyle(dParent,{h:500});
 	let d0 = mDiv100(dParent, { display: 'flex', dir: 'column', 'justify-content': 'space-between' });//,'align-items':'center'});
 	//let d0 = mDiv(dParent, { w:'100%',h:'150%',display: 'flex', dir: 'column', 'justify-content': 'space-between' });//,'align-items':'center'});
-	if (isdef(rowStyles)) mStyleX(d0, rowStyles);
+	if (isdef(rowStyles)) mStyle(d0, rowStyles);
 
 	//dParent.style.background='red';
 	//d0.style.maxHeight = '300px';
@@ -1073,7 +1073,7 @@ function mRowsX(dParent, arr, itemStyles = { bg: 'random' }, rowStyles, colStyle
 }
 function mColsX(dParent, arr, itemStyles = { bg: 'random' }, rowStyles, colStyles, akku) {
 	let d0 = mDiv100(dParent, { display: 'flex', 'justify-content': 'space-between' }); //,'align-items':'center'});
-	if (isdef(colStyles)) mStyleX(d0, colStyles);
+	if (isdef(colStyles)) mStyle(d0, colStyles);
 	for (let i = 0; i < arr.length; i++) {
 		let content = arr[i];
 		if (isList(content)) {
@@ -1095,10 +1095,10 @@ function mContentX(content, dParent, styles = { sz: CSZ / 5, fg: 'random' }) {
 }
 function mRows(dParent, arr, itemStyles = { bg: 'random' }, rowStyles, colStyles, akku) {
 
-	//mStyleX(dParent,{h:500});
+	//mStyle(dParent,{h:500});
 	let d0 = mDiv100(dParent, { display: 'flex', dir: 'column', 'justify-content': 'space-between' });//,'align-items':'center'});
 	//let d0 = mDiv(dParent, { w:'100%',h:'150%',display: 'flex', dir: 'column', 'justify-content': 'space-between' });//,'align-items':'center'});
-	if (isdef(rowStyles)) mStyleX(d0, rowStyles);
+	if (isdef(rowStyles)) mStyle(d0, rowStyles);
 
 	//dParent.style.background='red';
 	//d0.style.maxHeight = '300px';
@@ -1120,7 +1120,7 @@ function mRows(dParent, arr, itemStyles = { bg: 'random' }, rowStyles, colStyles
 }
 function mCols(dParent, arr, itemStyles = { bg: 'random' }, rowStyles, colStyles, akku) {
 	let d0 = mDiv100(dParent, { display: 'flex', 'justify-content': 'space-between' }); //,'align-items':'center'});
-	if (isdef(colStyles)) mStyleX(d0, colStyles);
+	if (isdef(colStyles)) mStyle(d0, colStyles);
 	for (let i = 0; i < arr.length; i++) {
 		let content = arr[i];
 		if (isList(content)) {
@@ -1652,7 +1652,7 @@ function splayout(elems, dParent, w, h, x, y, overlap = 20, splay = 'right') {
 		//console.log('splayRight', elems, d)
 		for (const c of elems) {
 			mAppend(d, c);
-			mStyleX(c, { position: 'absolute', left: x, top: y });
+			mStyle(c, { position: 'absolute', left: x, top: y });
 			x += overlap;
 		}
 		return [x, y];
@@ -1662,7 +1662,7 @@ function splayout(elems, dParent, w, h, x, y, overlap = 20, splay = 'right') {
 		let xLast = x;
 		for (const c of elems) {
 			mAppend(d, c);
-			mStyleX(c, { position: 'absolute', left: x, top: y });
+			mStyle(c, { position: 'absolute', left: x, top: y });
 			x -= overlap;
 		}
 		return [xLast, y];
@@ -1671,7 +1671,7 @@ function splayout(elems, dParent, w, h, x, y, overlap = 20, splay = 'right') {
 	function splayDown(elems, d, x, y, overlap) {
 		for (const c of elems) {
 			mAppend(d, c);
-			mStyleX(c, { position: 'absolute', left: x, top: y });
+			mStyle(c, { position: 'absolute', left: x, top: y });
 			y += overlap;
 		}
 		return [x, y];
@@ -1681,7 +1681,7 @@ function splayout(elems, dParent, w, h, x, y, overlap = 20, splay = 'right') {
 		let yLast = y;
 		for (const c of elems) {
 			mAppend(d, c);
-			mStyleX(c, { position: 'absolute', left: x, top: y });
+			mStyle(c, { position: 'absolute', left: x, top: y });
 			y -= overlap;
 		}
 		return [x, yLast];
@@ -1689,7 +1689,7 @@ function splayout(elems, dParent, w, h, x, y, overlap = 20, splay = 'right') {
 
 	if (isEmpty(elems)) return { w: 0, h: 0 };
 
-	mStyleX(dParent, { display: 'block', position: 'relative' });
+	mStyle(dParent, { display: 'block', position: 'relative' });
 
 	//phase 4: add items to container
 	[x, y] = (eval('splay' + capitalize(splay)))(elems, dParent, x, y, overlap);
@@ -1881,7 +1881,7 @@ function mgSuit(key) {
 function mgSym(key) {
 	let el = gCreate('text');
 	let info = Syms[key];
-	mStyleX(el, { family: info.family });
+	mStyle(el, { family: info.family });
 	el.innerHTML = info.text;
 	return el;
 }
@@ -1976,7 +1976,7 @@ function mSymbol(key, dParent, sz, styles = {}) {
 	let txt = mText(info.text, d, { family: info.family });
 
 	console.log('-----------', margin, hpadding, vpadding);
-	mStyleX(txt, { margin: margin, 'box-sizing': 'border-box' });
+	mStyle(txt, { margin: margin, 'box-sizing': 'border-box' });
 
 	return d;
 }
@@ -2055,7 +2055,7 @@ function cardInno1(key, wCard = 420) {
 	mSize(d, w, h);
 	//let szSym = 50; let fz = szSym * .8;
 
-	mStyleX(d, { fz: pa, margin: 8, align: 'left', bg: info.c, rounding: rnd, patop: paSym, paright: pa, pabottom: szSym, paleft: szSym + paSym, border: '' + bth + 'px solid silver', position: 'relative' })
+	mStyle(d, { fz: pa, margin: 8, align: 'left', bg: info.c, rounding: rnd, patop: paSym, paright: pa, pabottom: szSym, paleft: szSym + paSym, border: '' + bth + 'px solid silver', position: 'relative' })
 	mText(info.key.toUpperCase(), d, { fz: pa, weight: 'bold', margin: 'auto' });
 	mLinebreak(d);
 	for (const dog of info.dogmas) {
@@ -2124,7 +2124,7 @@ function placeSymbol(sym, szSym, margin, posStyles) {
 	posStyles.margin = margin;
 	posStyles.h = szSym;
 	posStyles.w = szSym; //sym.isEcho ? szSym * 3 : szSym;
-	mStyleX(d, posStyles); // { position: 'absolute', w: w, h: szSym, left: left, top: top, margin: margin });
+	mStyle(d, posStyles); // { position: 'absolute', w: w, h: szSym, left: left, top: top, margin: margin });
 }
 
 

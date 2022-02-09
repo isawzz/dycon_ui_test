@@ -280,7 +280,7 @@ function mMicrophone(dParent, color) {
 	//let style = { bg: '#FF413680', rounding: '50%', fz: 50, padding: 5 };
 	let bg = c;
 	let style = { bg: bg, rounding: '50%', fz: 50, padding: 5, transition: 'opacity .35s ease-in-out' };
-	mStyleX(d, style);
+	mStyle(d, style);
 	mLinebreak(dParent);
 	return d;
 }

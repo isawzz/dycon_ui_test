@@ -36,7 +36,7 @@ function gSet() {
 		for (const f of all_fens) {
 			let item = create_set_card(f, dCards, card_styles);
 			let d = iDiv(item);
-			mStyleX(d, { cursor: 'pointer' });
+			mStyle(d, { cursor: 'pointer' });
 			d.onclick = set_interact;
 			if (Goal.set.includes(item.fen)) Goal.cards.push(item);
 			items.push(item);
@@ -171,7 +171,7 @@ function gSpotit() {
 		copyKeys({ w: CSZ, h: CSZ }, cardStyles);
 
 		// //let card_container = mDiv(dParent,{padding:20});
-		// mStyleX(dParent,{bg:'red',hmin:CSZ+50});
+		// mStyle(dParent,{bg:'red',hmin:CSZ+50});
 		// let x = mDiv(dParent,{margin:20, w:200,h:200, bg:'white',fg:'black'},getUID(),'hallo','card',false);
 		// return x;	
 
@@ -291,7 +291,7 @@ function gSpotit() {
 		let items = [];
 		for (const info of infos) {
 			let item = spotit_card(info, dTable, { margin: 20 }, spotit_interact);
-			//mStyleX(iDiv(item), { animation: 'appear 1s ease' });
+			//mStyle(iDiv(item), { animation: 'appear 1s ease' });
 			items.push(item);
 		}
 
@@ -415,7 +415,7 @@ function gSpotit() {
 		let items = [];
 		for (const info of infos) {
 			let item = spotit_card(info, dTable, { margin: 20 }, spotit_interact);
-			//mStyleX(iDiv(item), { animation: 'appear 1s ease' });
+			//mStyle(iDiv(item), { animation: 'appear 1s ease' });
 			items.push(item);
 		}
 
@@ -497,12 +497,12 @@ function gMaze() {
 	function maze_feedback(is_correct, button_clicked, show_feedback = true) {
 		let delay = !is_correct && show_feedback ? 1000 : 100;
 		if (!is_correct) {
-			mStyleX(Goal.b_correct, { bg: 'green' });
+			mStyle(Goal.b_correct, { bg: 'green' });
 			animate(Goal.b_correct, 'komisch', 1000);
 			if (Goal.is_yes) Goal.maze.breadCrumbs(Goal.path); else Goal.maze.colorComponents();
 
 		}
-		if (is_correct) { mStyleX(button_clicked, { bg: 'green' }); mCheckit(button_clicked, 100); }
+		if (is_correct) { mStyle(button_clicked, { bg: 'green' }); mCheckit(button_clicked, 100); }
 		else { mXit(button_clicked); }
 
 		return delay;
@@ -585,7 +585,7 @@ function gAnagram() {
 	function anagram_feedback(is_correct, is_word, show_feedback = true) {
 		let delay = !is_correct && show_feedback ? 1000 : 300;
 		let d = iDiv(Goal);
-		mStyleX(d, { opacity: 1 });
+		mStyle(d, { opacity: 1 });
 		if (!is_correct) {
 			for (let i = 0; i < Goal.word.length; i++) {
 

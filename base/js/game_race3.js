@@ -553,7 +553,7 @@ function send_timer_ticker() {
 	let me = Session.cur_players[Session.cur_user];
 	to_server({ tid: Session.cur_tid, score: me.score, state: me.state, uname: me.name }, 'ticker_status_send_receive');
 }
-function set_background_color(color, elem) { if (nundef(elem)) elem = mBy('md').parentNode; mStyleX(elem, { bg: getColorDictColor(color) }); }
+function set_background_color(color, elem) { if (nundef(elem)) elem = mBy('md').parentNode; mStyle(elem, { bg: getColorDictColor(color) }); }
 function set_cur_tid_for_game() {
 	console.assert(isdef(Session.tables_by_game) && isdef(Session.cur_game), "set_cur_tid_for_game");
 	let tables = Session.tables_by_game;
@@ -651,7 +651,7 @@ function show_level(level, maxlevel) {
 	//console.log('level', level, 'maxlevel', maxlevel);
 	let handicap = maxlevel - level;
 	dLevel.innerHTML = `level: ${level}`;
-	mStyleX(dLevel, { fg: level >= 8 ? get_user_color() : 'white' });
+	mStyle(dLevel, { fg: level >= 8 ? get_user_color() : 'white' });
 }
 function show_title(title) { mBy('dScore').innerHTML = title; }
 function show_my_score() { let me = Session.cur_players[Session.cur_user]; console.log('my', me.name, 'score is', me.score); }

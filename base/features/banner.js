@@ -11,7 +11,7 @@ class Banner {
 		let bg = colorTrans('silver', .25);
 		let d = mScreen(this.dParent, { bg: bg, display: 'flex', layout: 'fvcc' });
 		let dContent = mDiv(d, { display: 'flex', layout: 'fvcs', fg: 'contrast', fz: 24, bg: 'silver', patop: 50, pabottom: 50, matop: -50, w: '100vw' });
-		if (isdef(this.pos)) mStyleX(dContent,{matop:this.pos});
+		if (isdef(this.pos)) mStyle(dContent,{matop:this.pos});
 		return [d, dContent];
 	}
 	init() {

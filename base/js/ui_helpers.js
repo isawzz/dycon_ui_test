@@ -25,7 +25,7 @@ function set_hover_ui(b, item) {
 		} else {
 			let bg = d.bg = mGetStyleX(d, 'bg');
 			//console.log('style bg is',bg);
-			mStyleX(d, { bg: 'silver' });
+			mStyle(d, { bg: 'silver' });
 
 		}
 	}
@@ -37,17 +37,17 @@ function set_hover_ui(b, item) {
 			//console.log('r', r);
 			r.setAttribute('fill', b.fill);
 		} else {
-			mStyleX(d, { bg: d.bg });
+			mStyle(d, { bg: d.bg });
 		}
 	}
 }
 function set_hover_div(b, d, val, prop) {
 	b.onmouseenter = () => {
 		d[prop] = mGetStyleX(d, prop);
-		let style = {}; style[prop] = val; mStyleX(d, style);
+		let style = {}; style[prop] = val; mStyle(d, style);
 	}
 	b.onmouseleave = () => {
-		let style = {}; style[prop] = d.bg; mStyleX(d, style);
+		let style = {}; style[prop] = d.bg; mStyle(d, style);
 	}
 }
 function set_hover_card(b, d, val = 'silver', prop = 'fill') {
@@ -120,7 +120,7 @@ function ui_type_building(b, dParent) {
 	if (isdef(b.h)) {
 		let keycard = items[0];
 		let d = iDiv(keycard);
-		mStyleX(d, { position: 'relative' });
+		mStyle(d, { position: 'relative' });
 		d_harvest = mDiv(d, { position: 'absolute', w: 20, h: 20, bg: 'orange', opacity: .5, fg: 'black', top: '45%', left: -10, rounding: '50%', align: 'center' }, null, 'H');
 	}
 
@@ -142,7 +142,7 @@ function qanim() {
 		f(...params);
 	} //else console.log('...anim q done!')
 }
-function mFlexColumnWrap(d) { mStyleX(d, { display: 'flex', 'flex-flow': 'column wrap' }); }
+function mFlexColumnWrap(d) { mStyle(d, { display: 'flex', 'flex-flow': 'column wrap' }); }
 
 function ui_from_deck_to_hand(el, deck, hand) {
 	let topmost = deck.items.shift();

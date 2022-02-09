@@ -8,8 +8,8 @@ function test7_ari_anim_auto_deal(otree) {
 	let deck = ui_make_random_deck(50);
 	let market = ui_make_random_market(0); 
 	mLinebreak(dTable);
-	let hand1 = ui_make_random_hand(7); mStyleX(hand1.container, { w: '50%' });
-	let hand2 = ui_make_random_hand(7); mStyleX(hand2.container, { w: '50%' });
+	let hand1 = ui_make_random_hand(7); mStyle(hand1.container, { w: '50%' });
+	let hand2 = ui_make_random_hand(7); mStyle(hand2.container, { w: '50%' });
 
 	DA.qanim = [
 		[anim_from_deck_to_marketX,[deck,market]],
@@ -23,8 +23,8 @@ function test6_ari_anim_auto_deal(otree) {
 	let deck = ui_make_random_deck(50);
 	let market = ui_make_random_market(0); 
 	mLinebreak(dTable);
-	let hand1 = ui_make_random_hand(7); mStyleX(hand1.container, { w: '50%' });
-	let hand2 = ui_make_random_hand(7); mStyleX(hand2.container, { w: '50%' });
+	let hand1 = ui_make_random_hand(7); mStyle(hand1.container, { w: '50%' });
+	let hand2 = ui_make_random_hand(7); mStyle(hand2.container, { w: '50%' });
 
 	top_card_to_market(deck, market);
 
@@ -33,8 +33,8 @@ function test5_ari_anim_deal_market(otree) {
 	let deck = ui_make_random_deck(50);
 	let market = ui_make_random_market(1); 
 	mLinebreak(dTable);
-	let hand1 = ui_make_random_hand(7); mStyleX(hand1.container, { w: '50%' });
-	let hand2 = ui_make_random_hand(7); mStyleX(hand2.container, { w: '50%' });
+	let hand1 = ui_make_random_hand(7); mStyle(hand1.container, { w: '50%' });
+	let hand2 = ui_make_random_hand(7); mStyle(hand2.container, { w: '50%' });
 
 	top_card_to_market(deck, market);
 
@@ -42,8 +42,8 @@ function test5_ari_anim_deal_market(otree) {
 function test4_ari_deck_2_fixed_size_hands(otree) {
 	let deck = ui_make_random_deck(10);
 	mLinebreak(dTable);
-	let hand1 = ui_make_random_hand(1); mStyleX(hand1.container, { w: '50%' });
-	let hand2 = ui_make_random_hand(1); mStyleX(hand2.container, { w: '50%' });
+	let hand1 = ui_make_random_hand(1); mStyle(hand1.container, { w: '50%' });
+	let hand2 = ui_make_random_hand(1); mStyle(hand2.container, { w: '50%' });
 
 	let d = iDiv(deck.topmost);
 	top_card_to_hands_abwechselnd(deck, hand1, hand2);
@@ -62,7 +62,7 @@ function test3_ari_deck_2_hands(otree) {
 function top_card_to_hands_abwechselnd(deck, hand1, hand2) {
 	DA.hand = hand1;
 	deck.items.map(x => {
-		mStyleX(iDiv(x), { cursor: 'pointer' });
+		mStyle(iDiv(x), { cursor: 'pointer' });
 		iDiv(x).onclick = () => {
 			anim_from_deck_to_handX(x, deck, DA.hand);
 			DA.hand = DA.hand == hand1 ? hand2 : hand1;
@@ -72,7 +72,7 @@ function top_card_to_hands_abwechselnd(deck, hand1, hand2) {
 }
 function top_card_to_market(deck, market) {
 	deck.items.map(x => {
-		mStyleX(iDiv(x), { cursor: 'pointer' });
+		mStyle(iDiv(x), { cursor: 'pointer' });
 		iDiv(x).onclick = () => {
 			anim_from_deck_to_marketX(x, deck, market);
 		}
@@ -86,7 +86,7 @@ function test2_ari_deck_and_hand(otree) {
 
 	let d = iDiv(deck.topmost);
 
-	deck.items.map(x => { mStyleX(iDiv(x), { cursor: 'pointer' }); iDiv(x).onclick = () => anim_from_deck_to_hand(x, deck, hand); });
+	deck.items.map(x => { mStyle(iDiv(x), { cursor: 'pointer' }); iDiv(x).onclick = () => anim_from_deck_to_hand(x, deck, hand); });
 
 }
 
@@ -143,7 +143,7 @@ function test2_show_contacts() {
 }
 function test1_change_user() {
 	setTimeout(() => {
-		mStyleX(mBy('user_info'), { opacity: 0 });
+		mStyle(mBy('user_info'), { opacity: 0 });
 		setTimeout(() => {
 			let name = chooseRandom(get_user_names(), x => x != Session.cur_user);
 			load_user(name);
@@ -329,7 +329,7 @@ function testCardContent0(card) {
 	}
 }
 function testInnoMain() {
-	mStyleX(dTable, { gap: 10, pabottom: 150 });
+	mStyle(dTable, { gap: 10, pabottom: 150 });
 
 	for (const k in Cinno) {
 		if (isdef(Cinno[k].expansion)) cardInno(dTable, k);
@@ -339,7 +339,7 @@ function testInnoCardPhantasie() {
 
 	dTable = mDiv(mBy('wrapper'), { position: 'absolute', padding: 10, w: '100vw', h: '100vh', bg: 'white' });
 
-	mStyleX(dTable, { gap: 10 }); let card = cBlank(dTable, { fg: 'black', bg: INNO.color.red, w: CSZ, h: CSZ * .65 });
+	mStyle(dTable, { gap: 10 }); let card = cBlank(dTable, { fg: 'black', bg: INNO.color.red, w: CSZ, h: CSZ * .65 });
 	let [dCard, sz, szTitle, gap] = [iDiv(card), CSZ / 4, 24, 8];
 
 	let [dTitle, dMain] = cTitleArea(card, 32);
@@ -401,7 +401,7 @@ function testInnoCardPhantasie() {
 
 }
 function testRectanglesW1() {
-	mStyleX(dTable, { gap: 10 }); let card = cBlank(dTable, { w: CSZ, h: CSZ * .8 });
+	mStyle(dTable, { gap: 10 }); let card = cBlank(dTable, { w: CSZ, h: CSZ * .8 });
 	let [d, sz, szTitle, gap] = [iDiv(card), CSZ / 4, 24, 8];
 
 
@@ -423,7 +423,7 @@ function testRectanglesW1() {
 
 }
 function testRectanglesTextInBoxesW0() {
-	mStyleX(dTable, { gap: 10 }); let card = cBlank(dTable, { w: CSZ, h: CSZ * .8 });
+	mStyle(dTable, { gap: 10 }); let card = cBlank(dTable, { w: CSZ, h: CSZ * .8 });
 	let [d, sz, szTitle, gap] = [iDiv(card), CSZ / 4, 24, 8];
 
 
@@ -456,12 +456,12 @@ function testRectanglesTextInBoxesW0() {
 
 }
 function testPositionCardSym() {
-	mStyleX(dTable, { gap: 10 }); let card = cBlank(dTable); let d = iDiv(card); let sz = CSZ / 5;
+	mStyle(dTable, { gap: 10 }); let card = cBlank(dTable); let d = iDiv(card); let sz = CSZ / 5;
 
 	let x1 = mSym('crow', d, { w: sz, h: sz, bg: 'random' }, 'cc'); console.log('\nx1', x1);
 }
 function testPosition3() {
-	mStyleX(dTable, { gap: 10 }); let card = cBlank(dTable); let d = iDiv(card); let sz = CSZ / 5;
+	mStyle(dTable, { gap: 10 }); let card = cBlank(dTable); let d = iDiv(card); let sz = CSZ / 5;
 
 	let x1 = mShapeR('hex', null, { w: sz, h: sz, bg: 'random' }); console.log('\nx1', x1);
 
@@ -471,7 +471,7 @@ function testPosition3() {
 
 }
 function testPositionPatterns() {
-	mStyleX(dTable, { gap: 10 }); let card = cBlank(dTable); let d = iDiv(card); let sz = CSZ / 5;
+	mStyle(dTable, { gap: 10 }); let card = cBlank(dTable); let d = iDiv(card); let sz = CSZ / 5;
 
 	let x1 = mShapeR('hex', null, { w: sz, h: sz, bg: 'random' }); console.log('\nx1', x1);
 
@@ -482,7 +482,7 @@ function testPositionPatterns() {
 
 }
 function testPositionPatterns1() {
-	mStyleX(dTable, { gap: 10 }); let card = cBlank(dTable); let d = iDiv(card); let sz = CSZ / 5;
+	mStyle(dTable, { gap: 10 }); let card = cBlank(dTable); let d = iDiv(card); let sz = CSZ / 5;
 
 	let x1 = mShapeR('circle', null, { w: sz, h: sz, bg: 'random' }); console.log('\nx1', x1);
 
@@ -497,7 +497,7 @@ function testPositionPatterns1() {
 
 }
 function testPositionShapeR0() {
-	mStyleX(dTable, { gap: 10 }); let card = cBlank(dTable); let d = iDiv(card); let sz = CSZ / 4;
+	mStyle(dTable, { gap: 10 }); let card = cBlank(dTable); let d = iDiv(card); let sz = CSZ / 4;
 	let x1 = mShapeR('triup', d, { sz: sz, bg: 'random' }); console.log('\nx1', x1);
 	mPlace(x1, 'tl');
 
@@ -515,7 +515,7 @@ function testPositionShapeR0() {
 function testKartePositionSuit() {
 	//stress test: for (let i = 0; i < 100; i++) { testKartePositionSuit(); }
 
-	mStyleX(dTable, { gap: 10 }); let card = cBlank(dTable); let d = iDiv(card); let sz = CSZ / 6;
+	mStyle(dTable, { gap: 10 }); let card = cBlank(dTable); let d = iDiv(card); let sz = CSZ / 6;
 
 	//alles auf einmal:
 	let s1 = mSuit('Herz', d, { sz: sz }, 'tc'); //console.log('s1', s1);
@@ -531,7 +531,7 @@ function testKartePositionSuit() {
 
 }
 function testKarteSizing() {
-	mStyleX(dTable, { gap: 10 }); let card;
+	mStyle(dTable, { gap: 10 }); let card;
 	card = cBlank(dTable);
 	let d = iDiv(card);
 	let sz = CSZ;
@@ -550,10 +550,10 @@ function testKarteSizing() {
 
 	suit.setAttribute('height', h);//size a mSuit
 
-	mStyleX(sym, { fz: h * .75 });// 88 75 size a mSym: use magic number .75
+	mStyle(sym, { fz: h * .75 });// 88 75 size a mSym: use magic number .75
 	mSize(shape, h * .75); //size a mShape: use magic number .75
 	mSize(triangle, h * .75); //yes!
-	mStyleX(x, { w: h * .75 }); mClassReplace(x, 'weired1');
+	mStyle(x, { w: h * .75 }); mClassReplace(x, 'weired1');
 	//mSize(x,h*75);
 
 	arr = [triangle, suit, sym, shape, x];
@@ -573,7 +573,7 @@ function testKarteSizing() {
 
 //******************************** more tests *************************** */
 function testKartePositionSuitOuterCenters() {
-	mStyleX(dTable, { gap: 10 }); let card = cBlank(dTable); let d = iDiv(card); let sz = CSZ / 4;
+	mStyle(dTable, { gap: 10 }); let card = cBlank(dTable); let d = iDiv(card); let sz = CSZ / 4;
 
 	//alles auf einmal:
 	let s1 = mSuit('Pik', d, { sz: 60 }, 'tc'); console.log('s1', s1);
@@ -583,7 +583,7 @@ function testKartePositionSuitOuterCenters() {
 
 }
 function testKartePosition2() {
-	mStyleX(dTable, { gap: 10 }); let card = cBlank(dTable); let d = iDiv(card); let sz = CSZ / 4;
+	mStyle(dTable, { gap: 10 }); let card = cBlank(dTable); let d = iDiv(card); let sz = CSZ / 4;
 
 	//alles auf einmal:
 	let s1 = mSuit('Pik', d, { sz: 25 }, 'tl'); console.log('s1', s1);
@@ -593,16 +593,16 @@ function testKartePosition2() {
 
 }
 function testKartePosition1() {
-	mStyleX(dTable, { gap: 10 }); let card = cBlank(dTable); let d = iDiv(card); let sz = CSZ / 4;
+	mStyle(dTable, { gap: 10 }); let card = cBlank(dTable); let d = iDiv(card); let sz = CSZ / 4;
 
 	// let s = mSuit('Karo', d, { h: sz });	//mSuitLeft(s);	mSuitBottom(s);
-	// mStyleX(s, { top: 0, right: 0, position: 'absolute' });
+	// mStyle(s, { top: 0, right: 0, position: 'absolute' });
 
 	// let s1 = mSuit('Treff', d, { h: sz });	//mSuitLeft(s);	mSuitBottom(s);
-	// mStyleX(s1, { top: 100, right: -10, position: 'absolute' });
+	// mStyle(s1, { top: 100, right: -10, position: 'absolute' });
 
 	// let s2 = mSuit('Pik', d, { h: sz });	//mSuitLeft(s);	mSuitBottom(s);
-	// mStyleX(s2, { top: 200, right: getSuitOffset(sz), position: 'absolute' });
+	// mStyle(s2, { top: 200, right: getSuitOffset(sz), position: 'absolute' });
 
 
 	//produce+attach, size, position TL:
@@ -610,7 +610,7 @@ function testKartePosition1() {
 
 	//produce+attach, size, position BR:
 	let s4 = mSuit('Treff', d); mSuitSize(s4, 30); mSuitPos(s4, 'bottom', 'right'); console.log('s4', s4); //fail!
-	//mStyleX(s4,{right:0,bottom:0,position:'absolute'});
+	//mStyle(s4,{right:0,bottom:0,position:'absolute'});
 
 	let s5 = mSuit('Herz', d, { sz: 30 }); mSuitPos(s5, 'bottom', 'left'); console.log('s5', s5); //fail!
 	let s6 = mSuit('Karo', d, { sz: 30 }); mSuitPos(s6, 'top', 'right'); console.log('s6', s6); //fail!
@@ -618,7 +618,7 @@ function testKartePosition1() {
 
 
 	//let s1=mSuit('Herz',d,{h:sz}); mSuitRight(s1); //	mSuitBottom(s1);
-	//mStyleX(s1,{right:0,position:'absolute'});
+	//mStyle(s1,{right:0,position:'absolute'});
 	//mSuitLeft(s,sz); ok
 	//mSuitSize(suit2,sz); NOOOOOOOOOOOOOOO
 	//mSuitLeft(suit2,sz);
@@ -631,14 +631,14 @@ function testKartePosition1() {
 	//wieviel prozent ist 10 von 75? 10 / (75/100) ... 1000/75? YES! 13.3
 	mPos(suit1, -10 * sz / 100, CHEIGHT - sz); //JA das ist perfect!!!!!
 	//bei CSZ=300 ist 
-	//mStyleX(suit1,{left:0,top:`calc( 100% - ${sz}px )`,position:'absolute'}); // ja seems to work!
-	//mStyleX(suit1,{left:0,top:`calc( 100% - ${sz}px )`,position:'absolute'}); // ja seems to work!
+	//mStyle(suit1,{left:0,top:`calc( 100% - ${sz}px )`,position:'absolute'}); // ja seems to work!
+	//mStyle(suit1,{left:0,top:`calc( 100% - ${sz}px )`,position:'absolute'}); // ja seems to work!
 	//position:
 
 
 }
 function testKarte0() {
-	mStyleX(dTable, { gap: 10 }); let card = cBlank(dTable); let d = iDiv(card); let sz = CSZ;
+	mStyle(dTable, { gap: 10 }); let card = cBlank(dTable); let d = iDiv(card); let sz = CSZ;
 
 	let suit = mSuit('Pik', d, { h: 300 });  // nope, brauch setAttribute in suit
 	let p = suit.firstChild;
@@ -663,12 +663,12 @@ function testKarte5() {
 	for (let i = 0; i < 10; i++) {
 		let n = i * 15; // 10*randomNumber(2,25);
 		let x = mShapeR(); console.log('\nx', x);
-		mStyleX(x, { w: n }); mClassReplace(x, 'weired' + (n > 120 ? 8 : n > 80 ? 5 : n > 50 ? 3 : 1));
+		mStyle(x, { w: n }); mClassReplace(x, 'weired' + (n > 120 ? 8 : n > 80 ? 5 : n > 50 ? 3 : 1));
 		mAppend(dTable, x);
 	}
 }
 function testKarte4() {
-	mStyleX(dTable, { gap: 10 }); let card;
+	mStyle(dTable, { gap: 10 }); let card;
 	card = cBlank(dTable);
 	let d = iDiv(card);
 	let sz = CSZ;
@@ -687,10 +687,10 @@ function testKarte4() {
 	//size a suit? simply set h
 	let h = sz / 4;
 	suit.setAttribute('height', h);//size a mSuit
-	mStyleX(sym, { fz: h * .75 });// 88 75 size a mSym: use magic number .75
+	mStyle(sym, { fz: h * .75 });// 88 75 size a mSym: use magic number .75
 	mSize(shape, h * .75); //size a mShape: use magic number .75
 	mSize(triangle, h * .75); //yes!
-	// mStyleX(x, { w: h*.75 });
+	// mStyle(x, { w: h*.75 });
 	//mSize(x,h*75);
 
 
@@ -711,7 +711,7 @@ function testKarte4() {
 
 }
 function testKarte3_svg() {
-	mStyleX(dTable, { gap: 10 }); let card;
+	mStyle(dTable, { gap: 10 }); let card;
 
 	//card = cBlankSvg(dTable);
 	//immer noch brauch ich die Jack,King,Queen,back,Joker vielleicht
@@ -805,7 +805,7 @@ function testKarte2() {
 		mAppend(d, x);
 		let pos = sh1.pos;
 		if (pos != 'CC') {
-			mStyleX(x, { w: 80 });
+			mStyle(x, { w: 80 });
 			window['mPos' + sh1.pos](x, 10);
 		}
 
@@ -826,7 +826,7 @@ function testKarte1() {
 	x = mSym('bee', d, { fz: sz / 5, position: 'absolute', bottom: 10, right: 10 });
 	x = mDiv(d, { bg: YELLOW, w: sz / 4, h: sz / 4, position: 'absolute', top: 10, right: 10 }, null, null, 'triangle');
 
-	//mStyleX(d,{align:'center'});
+	//mStyle(d,{align:'center'});
 	let text = 'diese karte erlaubt es dir, zu verschwinden und aufzutauchen wo immer du willst.<br><br>pass jedoch auf: wenn du auf einer ungesicherten mine landest, verlierst du 1 leben!';
 	let [fz, w, h] = fitFont(text, 20, sz, sz / 2);
 	let pos = { left: (card.w - w) / 2, top: (card.h - h) / 2 }
@@ -857,7 +857,7 @@ function testKarte1() {
 	];
 	for (const sh1 of sh) {
 		x = createElementFromHtml(sh1);
-		mStyleX(x, { w: 80 });
+		mStyle(x, { w: 80 });
 		mAppend(dTable, x);
 	}
 
@@ -1943,7 +1943,7 @@ function cardGameTest07_helper() {
 		iRegister(item, item.id);
 		iAdd(item, { div: dCell, dTitle: dCell.children[0], dMessage: dCell.children[1], dContent: dCell.children[2] });
 		mCenterCenterFlex(diContent(item));
-		mStyleX(diContent(item), { gap: 10 });//,padding:10, box:true});
+		mStyle(diContent(item), { gap: 10 });//,padding:10, box:true});
 		items.push(item);
 	}
 	return items;
@@ -1980,7 +1980,7 @@ function cardGameTest06_clean_OK() {
 		iRegister(item, item.id);
 		iAdd(item, { div: dCell, dTitle: dCell.children[0], dMessage: dCell.children[1], dContent: dCell.children[2] });
 		mCenterCenterFlex(diContent(item));
-		mStyleX(diContent(item), { gap: 10 });//,padding:10, box:true});
+		mStyle(diContent(item), { gap: 10 });//,padding:10, box:true});
 		items.push(item);
 	}
 	return items;
@@ -1991,7 +1991,7 @@ function cardGameTest05() {
 	setBackgroundColor(null, 'random');
 	let dGrid = mDiv(dTable, { gap: 10, bg: 'white', w: '80%', h: 400, padding: 10, display: 'inline-grid', rounding: 10 }, 'dGrid');
 	// let dGrid = mDiv(dTable, { gap: 10, bg: 'white', w: '80%', h: 400, padding: 10, display: 'inline-grid' }, 'dGrid');
-	//mStyleX(dTable, { h: 400, bg: 'black', padding: 10 });
+	//mStyle(dTable, { h: 400, bg: 'black', padding: 10 });
 	//let dGrid = mDiv100(dTable, { display: 'inline-grid' });//,'dGrid');
 
 
@@ -2036,7 +2036,7 @@ function cardGameTest05() {
 function cardGameTest04() {
 	setBackgroundColor(null, 'random');
 	let dGrid = mDiv(dTable, { bg: 'red', w: '80%', h: 400, padding: 10, display: 'inline-grid', rounding: 10 }, 'dGrid');
-	//mStyleX(dTable, { h: 400, bg: 'black', padding: 10 });
+	//mStyle(dTable, { h: 400, bg: 'black', padding: 10 });
 	//let dGrid = mDiv100(dTable, { display: 'inline-grid' });//,'dGrid');
 	let layout = ['T', 'H A'];
 	let x = createGridLayout(dGrid, layout);
@@ -2048,7 +2048,7 @@ function cardGameTest04() {
 }
 function cardGameTest03_OK() {
 	setBackgroundColor(null, 'random');
-	mStyleX(dTable, { h: 400, bg: 'black', padding: 10 });
+	mStyle(dTable, { h: 400, bg: 'black', padding: 10 });
 	let dGrid = mDiv100(dTable, { display: 'inline-grid' });//,'dGrid');
 	let layout = ['T', 'H A'];
 	let x = createGridLayout(dGrid, layout);
@@ -2060,7 +2060,7 @@ function cardGameTest03_OK() {
 }
 function cardGameTest02() {
 	setBackgroundColor(null, 'random');
-	mStyleX(dTable, { h: 400, bg: 'black', padding: 10 });
+	mStyle(dTable, { h: 400, bg: 'black', padding: 10 });
 
 	let SPEC = { layout: ['T', 'H A'], showAreaNames: true };
 	let s = '';
@@ -2128,7 +2128,7 @@ function cTest10() {
 }
 function cTest05() {
 	setBackgroundColor(null, 'random')
-	mStyleX(dTable, { h: 400, bg: 'black', padding: 10 });
+	mStyle(dTable, { h: 400, bg: 'black', padding: 10 });
 
 	let SPEC = { layout: ['T T', 'H A'], showAreaNames: true };
 	let s = '';
@@ -2163,11 +2163,11 @@ function cTest05B() {
 	let areas = mAreas(dGridContainer);
 	areas.map(x => mCenterCenterFlex(x.div));
 	let dGrid = dGridContainer.children[0];
-	mStyleX(dGrid, { gap: 5, bg: 'blue', box: true, padding: 5 })
+	mStyle(dGrid, { gap: 5, bg: 'blue', box: true, padding: 5 })
 	console.log(dTrick, dGridContainer.children[0]);
 
 	//what is the size of the content div in any of the areas?
-	areas.map(x => mStyleX(x.div, { h: 110 }));
+	areas.map(x => mStyle(x.div, { h: 110 }));
 }
 function cTest04_2HandsRandom() {
 	// let h1 = iMakeHand([33, 7, 1, 2, 3, 4], dTable,{}, 'h1');

@@ -27,7 +27,7 @@ function applyColorkey(item) {
 	let sShade = '0 0 0 ' + item.textShadowColor;
 	item.shadeStyles = { 'text-shadow': sShade, fg: anyColorToStandardString('black', l.options.contrast) };
 	let ui = l.options.showPic ? l.dPic : l.dLabel;
-	mStyleX(ui, item.shadeStyles);
+	mStyle(ui, item.shadeStyles);
 }
 function _calcFontPicFromText(options, overrideExisting = true) {
 	if (nundef(options.fzPic) || overrideExisting) options.fzPic = Math.floor(options.fzText * 4 * (options.luc == 'u' ? .7 : .6)); //taking 4 as min word length
@@ -263,7 +263,7 @@ function makeItemHintable(item) {
 	let d = iDiv(item);
 	let dov = mDiv100(d);
 	let rect = getRect(d);
-	mStyleX(dov, { position: 'absolute', w: rect.w, h: rect.h })
+	mStyle(dov, { position: 'absolute', w: rect.w, h: rect.h })
 	iAdd(item, { overlay: dov });
 	dov.style.userSelect = 'none';
 }
@@ -294,7 +294,7 @@ function makeItemDiv(item, options) {
 	if (options.showPic) {
 		dPic = mDiv(dOuter, { family: item.info.family });
 		dPic.innerHTML = item.info.text;
-		if (isdef(options.picStyles)) mStyleX(dPic, options.picStyles);
+		if (isdef(options.picStyles)) mStyle(dPic, options.picStyles);
 	}
 
 	if (options.showLabels && options.labelBottom == true) { dLabel = mText(item.label, dOuter, options.labelStyles); }
@@ -320,7 +320,7 @@ function modLabel(item, newLabel, styles) {
 	let dLabel = iLabel(item);
 	//console.log(dLabel,newLabel,styles)
 	dLabel.innerHTML = newLabel;
-	mStyleX(dLabel, styles);
+	mStyle(dLabel, styles);
 	item.label = newLabel;
 	return dLabel;
 }
@@ -331,12 +331,12 @@ function addLabel(item, label, styles) {
 	if (isdef(item.live.dLabel)) mRemove(item.live.dLabel);
 	let dLabel = item.live.dLabel = mDiv(div, styles, null, label);
 	mCenterFlex(div, true, true);
-	mStyleX(div, { 'vertical-align': 'top' });
+	mStyle(div, { 'vertical-align': 'top' });
 	return dLabel;
 }
 function addLabel1(item, label, replaceOld = true) {
 	let div = iDiv(item);
-	mStyleX(div, { 'vertical-align': 'top' });
+	mStyle(div, { 'vertical-align': 'top' });
 	//console.log('div', div);
 	if (isdef(item.live.dLabel)) mRemove(item.live.dLabel);
 	let dLabel = item.live.dLabel = mDiv(div, { fz: 20 }, null, label);
@@ -352,7 +352,7 @@ function removeLabel(item) {
 		// let rect = getRect(div);
 		// //wie wird
 		// let fzPic = getStandardFzPic(rect.w, rect.h, false);
-		// mStyleX(item.live.dPic, { fz, fPic });
+		// mStyle(item.live.dPic, { fz, fPic });
 	}
 	return item;
 }

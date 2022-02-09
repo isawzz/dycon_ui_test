@@ -114,7 +114,7 @@ function fleetingMessage(msg, styles, fade = false, ms = 3000) {
 	let d = mDiv(dLineBottom);
 	if (isString(msg)) {
 		d.innerHTML = msg;
-		mStyleX(d, styles)
+		mStyle(d, styles)
 	} else {
 		mAppend(d, msg);
 	}
@@ -337,7 +337,7 @@ function table_shield_on() {
 function table_shield_off() { 
 	if (isdef(dTableShield)) { dTableShield.remove(); dTableShield = null; } 
 }
-function shield_on() { show('dShield'); mStyleX(dShield, { bg: '#00000080' }); }
+function shield_on() { show('dShield'); mStyle(dShield, { bg: '#00000080' }); }
 function shield_off() { hide('dShield'); }
 function click_shield_on(msg) { show_shield(msg); }
 function click_shield_off() { mBy('dShield').style.display = 'none'; }
@@ -394,7 +394,7 @@ function main_menu_on() { open_sidebar(); close_mini_user_info(); }
 function initTable() {
 	let table = mBy('table');
 	clearElement(table);
-	mStyleX(table, { overflow: 'hidden' });
+	mStyle(table, { overflow: 'hidden' });
 
 	initLineTop();
 	initLineTitle();
@@ -411,7 +411,7 @@ function initSidebar() {
 	clearElement(dParent);
 	//console.log('dLeiste wird angelegt!!!!!!!')
 	dLeiste = mDiv(dParent);
-	mStyleX(dLeiste, { wmin: 70, hmax: '100vh', display: 'flex', 'flex-flow': 'column wrap' });
+	mStyle(dLeiste, { wmin: 70, hmax: '100vh', display: 'flex', 'flex-flow': 'column wrap' });
 }
 function initActionPanel() {
 	show('dLeftSide');
@@ -419,7 +419,7 @@ function initActionPanel() {
 	clearElement(dParent);
 	//console.log('dLeiste wird angelegt!!!!!!!')
 	dLeiste = mDiv(dParent);
-	mStyleX(dLeiste, { wmin: 70, hmin: '100%', display: 'flex', 'flex-flow': 'column wrap' });
+	mStyle(dLeiste, { wmin: 70, hmin: '100%', display: 'flex', 'flex-flow': 'column wrap' });
 }
 function initAux() {
 	dAux = mBy('dAux');
@@ -447,7 +447,7 @@ function initLineTop() {
 function initLineTitle() {
 	dLineTitleOuter = mDiv(table); dLineTitleOuter.id = 'lineTitleOuter';
 	dLineTitle = mDiv(dLineTitleOuter); dLineTitle.id = 'lineTitle';
-	if (PROJECTNAME != 'belinda') mStyleX(dLineTitle, { matop: 5 });
+	if (PROJECTNAME != 'belinda') mStyle(dLineTitle, { matop: 5 });
 	dLineTitleLeft = mDiv(dLineTitle); dLineTitleLeft.id = 'lineTitleLeft';
 	dLineTitleRight = mDiv(dLineTitle); dLineTitleRight.id = 'lineTitleRight';
 	dLineTitleMiddle = mDiv(dLineTitle); dLineTitleMiddle.id = 'lineTitleMiddle';
@@ -634,7 +634,7 @@ function load_user(name, display_ui = true) {
 function show_user(user) {
 	//where(user);
 	//console.log('show user',user);
-	mStyleX(mBy('user_info'), { opacity: 1 });
+	mStyle(mBy('user_info'), { opacity: 1 });
 	//mBy('user_info').style.opacity = 1;
 	mBy("username").innerHTML = mBy('mini_username').innerHTML = user.name;
 	mBy("motto").innerHTML = user.motto;

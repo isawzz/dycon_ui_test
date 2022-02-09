@@ -162,7 +162,7 @@ function show_checkmark(dParent,styles={fg:'limegreen'}){
 function create_marker(text) {
 	let d = mCreate('div');
 	d.innerHTML = text; // MarkerText[markerId]; //>0? '✔️':'❌';
-	mStyleX(d,{position:'fixed',fz:50});
+	mStyle(d,{position:'fixed',fz:50});
 	document.body.appendChild(d);
 	Markers.push(d);
 	return d;

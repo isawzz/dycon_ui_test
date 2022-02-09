@@ -4,7 +4,7 @@ from send_mail import send_mail
 from utils import *
 
 app = Flask(__name__, static_url_path='', static_folder='')
-ENV = 'prod' #prod to run on Heroku, dev to run locally (needs Postgres installed for / routes)
+ENV = 'dev' #prod to run on Heroku, dev to run locally (needs Postgres installed for / routes)
 
 #region database config
 from flask_sqlalchemy import SQLAlchemy
@@ -77,7 +77,7 @@ class Feedback(db.Model):
 
 #endregion
 
-#region functions
+#region db functions
 def db_update_following(user):
 	#here need to update the following info for each other user in db!!!!
 	flist = string_to_arr(user.follows)

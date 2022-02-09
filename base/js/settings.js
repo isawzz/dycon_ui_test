@@ -271,7 +271,7 @@ function mTextArea(rows, cols, dParent, styles = {}, id) {
 	let html = `<textarea id="${id}" rows="${rows}" cols="${cols}" wrap="hard"></textarea>`;
 	let t = createElementFromHTML(html);
 	mAppend(dParent, t);
-	mStyleX(t, styles);
+	mStyle(t, styles);
 	return t;
 }
 function clear_all_players(){

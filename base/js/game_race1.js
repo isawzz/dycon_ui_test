@@ -110,7 +110,7 @@ function createLetterInputsX(s, dParent, style, idForContainerDiv) {
 	for (let i = 0; i < s.length; i++) {
 		let d1 = mDiv(d);
 		d1.innerHTML = s[i];
-		mStyleX(d1, style);
+		mStyle(d1, style);
 	}
 	return d;
 }

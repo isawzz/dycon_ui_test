@@ -86,7 +86,7 @@ function mAddContentAndMeasure(d, content, styles, opts = {}, wNeeded = true, hN
 	if (replace) clearElement(d);
 	if (keepInLine) styles['white-space'] = 'nowrap';
 	if (newline) styles.display = 'block';
-	if (isdef(styles)) mStyleX(d1, styles);
+	if (isdef(styles)) mStyle(d1, styles);
 
 	if (wNeeded && hNeeded) setSizeNeeded(d);
 	else if (wNeeded) setWNeeded(d);
@@ -95,12 +95,12 @@ function mAddContentAndMeasure(d, content, styles, opts = {}, wNeeded = true, hN
 }
 function mAppend(d, child) { d.appendChild(child); return child; }
 function mAttrs(elem, attrs) { for (const k in attrs) { elem.setAttribute(k, attrs[k]); } }
-function mBackground(bg, fg) { mStyleX(document.body, { bg: bg, fg: fg }); }
+function mBackground(bg, fg) { mStyle(document.body, { bg: bg, fg: fg }); }
 function mBoxFromMargins(dParent, t, r, b, l, styles, id, inner, classes) {
 	let d = mDiv(dParent, { position: 'absolute', top: t, right: r, bottom: b, left: l }, id, inner, classes);
 	let pos = dParent.style.position;
 	if (pos != 'absolute') dParent.style.position = 'relative';
-	if (isdef(styles)) mStyleX(d, styles);
+	if (isdef(styles)) mStyle(d, styles);
 	return d;
 }
 function mButton(caption, handler, dParent, styles, classes, id) {
@@ -108,7 +108,7 @@ function mButton(caption, handler, dParent, styles, classes, id) {
 	x.innerHTML = caption;
 	if (isdef(handler)) x.onclick = handler;
 	if (isdef(dParent)) dParent.appendChild(x);
-	if (isdef(styles)) mStyleX(x, styles);
+	if (isdef(styles)) mStyle(x, styles);
 	if (isdef(classes)) mClass(x, classes);
 	if (isdef(id)) x.id = id;
 	return x;
@@ -134,7 +134,7 @@ function mCenterFlex(d, hCenter = true, vCenter = false, wrap = true) {
 	if (hCenter) styles['justify-content'] = 'center';
 	styles['align-content'] = vCenter ? 'center' : 'flex-start';
 	if (wrap) styles['flex-wrap'] = 'wrap';
-	mStyleX(d, styles);
+	mStyle(d, styles);
 	//console.log('d', d)
 }
 function mCheckit(elem, sz = 50) {
@@ -174,7 +174,7 @@ function mColorPickerBehavior(value, targetImage, elem, handler) {
 	let hues = arrTake(getHueWheel(value), 10);
 	let colorPalette = hues.map(x => anyColorToStandardString(colorHSLBuild(x)));
 	let palette = isdef(targetImage) ? getPaletteFromImage(targetImage) : colorPalette;
-	mStyleX(elem, { bg: value });
+	mStyle(elem, { bg: value });
 	let inp = new JSColor(elem, { alpha: 'ff', closeButton: true, value: value, palette: palette, });
 	inp.onInput = () => { let c = inp.toHEXAString(); handler(c); }
 	return inp;
@@ -205,12 +205,12 @@ function mColorPickerControl(label, value, targetImage, dParent, handler, styles
 	inp.onInput = () => { let c = inp.toHEXAString(); handler(c); }
 	return inp;
 }
-function mCreate(tag, styles, id) { let d = document.createElement(tag); if (isdef(id)) d.id = id; if (isdef(styles)) mStyleX(d, styles); return d; }
+function mCreate(tag, styles, id) { let d = document.createElement(tag); if (isdef(id)) d.id = id; if (isdef(styles)) mStyle(d, styles); return d; }
 function mDestroy(elem) { if (isString(elem)) elem = mById(elem); purge(elem); } // elem.parentNode.removeChild(elem); }
 function mDiv(dParent, styles, id, inner, classes, sizing) {
 	let d = mCreate('div');
 	if (dParent) mAppend(dParent, d);
-	if (isdef(styles)) mStyleX(d, styles);
+	if (isdef(styles)) mStyle(d, styles);
 	if (isdef(classes)) mClass(d, classes);
 	if (isdef(id)) d.id = id;
 	if (isdef(inner)) d.innerHTML = inner;
@@ -249,13 +249,13 @@ function mDivRestOfPage(dParent, dAbove, styles, id, inner, classes, sizing) {
 function mDover(dParent, styles = {}, sizing = true) {
 	// let d = mDiv(dParent, styles); 
 	// mIfNotRelative(dParent); 
-	// mStyleX(d, { position: 'absolute', w: '100%', h: '100%' }); 
+	// mStyle(d, { position: 'absolute', w: '100%', h: '100%' }); 
 	// setRect(d, sizing); 
 
 	let d = mDiv(dParent, styles);
 	mIfNotRelative(dParent);
 	//let s = dMain.style.position.toString(); console.log('isdef', isdef(dMain.style.position), s, s == '')
-	mStyleX(d, { position: 'absolute', left: 0, top: 0, w: '100%', h: '100%' });
+	mStyle(d, { position: 'absolute', left: 0, top: 0, w: '100%', h: '100%' });
 	setRect(d, sizing);
 
 
@@ -329,8 +329,8 @@ function mEditRange(label, value, min, max, step, dParent, handler, styles, clas
 	mAppend(d, inpText);
 	mAppend(d, inp);
 	// let button = mButton('+', triggerOnChange ? ev => { incInput(inp); handler(inp.innerHTML, ev); } : ev => { incInput(inp); }, d);
-	mStyleX(inpText, { display: 'inline', w: '20%', align: 'left', hpadding: hpad });
-	mStyleX(inp, { display: 'inline', w: '40%', hpadding: hpad });
+	mStyle(inpText, { display: 'inline', w: '20%', align: 'left', hpadding: hpad });
+	mStyle(inp, { display: 'inline', w: '40%', hpadding: hpad });
 
 	inpText.onchange = (ev) => { inp.value = inpText.value; handler(inpText.value, ev); };
 	// inpText.addEventListener('keydown', unfocusOnEnter);
@@ -350,7 +350,7 @@ function mEditNumber(label, value, dParent, handler, styles, classes, id, trigge
 	mAppend(d, inp);
 	let button = mButton('+', triggerOnChange ? ev => { incInput(inp); handler(inp.innerHTML, ev); }
 		: ev => { incInput(inp); }, d);
-	mStyleX(inp, { display: 'inline-block', w: '40%', align: 'left', hpadding: hpad });
+	mStyle(inp, { display: 'inline-block', w: '40%', align: 'left', hpadding: hpad });
 	inp.addEventListener('keydown', unfocusOnEnter);
 	inp.addEventListener('focusout', ev => { handler(inp.innerHTML, ev); });
 	inp.onclick = ev => selectText(ev.target);
@@ -367,7 +367,7 @@ function mEdit(label, value, dParent, handler, styles, classes, id) {
 
 	let inp = createElementFromHTML(`<div contenteditable="true" spellcheck="false">${value}</div>	`)
 	mAppend(d, inp);
-	mStyleX(inp, { display: 'inline-block', w: '50%', align: 'left', hpadding: hpad });
+	mStyle(inp, { display: 'inline-block', w: '50%', align: 'left', hpadding: hpad });
 	inp.addEventListener('keydown', unfocusOnEnter);
 	inp.addEventListener('focusout', ev => { handler(inp.innerHTML, ev); });
 	inp.onclick = ev => selectText(ev.target);
@@ -430,10 +430,10 @@ function mEditableInput(dParent, label, val, styles, classes, id) {
 	mAppend(dui, labelElem);
 	mAppend(dui, elem);
 	if (isdef(styles)) {
-		if (isdef(styles.wInput)) mStyleX(elem, { wmin: styles.wInput });
-		mStyleX(elem, styles);
+		if (isdef(styles.wInput)) mStyle(elem, { wmin: styles.wInput });
+		mStyle(elem, styles);
 	}
-	if (isdef(classes)) mStyleX(elem, classes);
+	if (isdef(classes)) mStyle(elem, classes);
 	if (isdef(id)) elem.id = id;
 
 	return elem;
@@ -452,7 +452,7 @@ function mgSvg(dParent, attrs) { return mgTag('svg', dParent, attrs); }
 function mgText(text, dParent, attrs, styles) { return mgTag('text', dParent, attrs, styles, text); }
 function mgTag(tag, dParent, attrs, styles = {}, innerHTML) {
 	let elem = gCreate(tag);
-	mStyleX(elem, styles);
+	mStyle(elem, styles);
 	mAttrs(elem, attrs);
 	if (isdef(innerHTML)) elem.innerHTML = innerHTML;
 	if (isdef(dParent)) mAppend(dParent, elem);
@@ -481,7 +481,7 @@ function mImg(path, dParent, styles, classes, callback) {
 	if (isdef(callback)) d.onload = callback;
 	d.src = path;
 	mAppend(dParent, d);
-	if (isdef(styles)) mStyleX(d, styles);
+	if (isdef(styles)) mStyle(d, styles);
 	if (isdef(classes)) mClass(d, classes);
 
 	if (isdef(styles.w)) d.setAttribute('width', styles.w + 'px');
@@ -491,13 +491,13 @@ function mImg(path, dParent, styles, classes, callback) {
 	return d;
 	//<img src="kiwi.svg" alt="Kiwi standing on oval"></img>
 }
-function mInner(html, dParent, styles) { dParent.innerHTML = html; if (isdef(styles)) mStyleX(dParent, styles); }
+function mInner(html, dParent, styles) { dParent.innerHTML = html; if (isdef(styles)) mStyle(dParent, styles); }
 function mInput(label, value, dParent, styles, classes, id) {
 	let inp = createElementFromHTML(`<input type="text" value="${value}" />`);
 	let labelui = createElementFromHTML(`<label>${label}</label>`);
 	mAppend(dParent, labelui);
 	mAppend(labelui, inp);
-	if (isdef(styles)) mStyleX(labelui, styles);
+	if (isdef(styles)) mStyle(labelui, styles);
 	if (isdef(classes)) mClass(inp, classes);
 	if (isdef(id)) inp.id = id;
 	return inp;
@@ -523,7 +523,7 @@ function mLabel(text, dParent, styles = {}, forId, classes) {
 	let l = mCreate('label');
 	l.innerHTML = text;
 	mAppend(dParent, l);
-	mStyleX(l, styles);
+	mStyle(l, styles);
 	if (isdef(classes)) mClass(l, classes);
 	if (isdef(forId)) { console.log('JA'); l.setAttribute('for', forId); }
 	return l;
@@ -551,7 +551,7 @@ function mLine3(dParent, index, ids, styles) {
 	mInsert(dParent, x, index);
 	return [mBy(ids[0]), mBy(ids[1]), mBy(ids[2])];
 }
-function mMeasure(d) { let r = getRect(d); mStyleX(d, { w: r.w, h: r.h }); return r; }
+function mMeasure(d) { let r = getRect(d); mStyle(d, { w: r.w, h: r.h }); return r; }
 function mMoveBy(elem, dx, dy) { let rect = getRect(elem); mPos(elem, rect.x + dx, rect.y + dy); }
 function mNode(o, dParent, title, isSized = false) {
 	let d = mCreate('div');
@@ -593,8 +593,8 @@ function mPic(kItem, dParent, styles, classes) {
 	d.innerHTML = info.text;
 	if (nundef(styles)) styles = {};
 	let picStyles = { family: info.family, fz: valf(styles.fz, valf(styles.h / 2, 25)), display: 'inline-block' };
-	mStyleX(dOuter, styles);
-	mStyleX(d, picStyles);
+	mStyle(dOuter, styles);
+	mStyle(d, picStyles);
 	if (isdef(classes)) mClass(dOuter, classes);
 
 	iAdd(item, { div: dOuter, dPic: d });
@@ -606,7 +606,7 @@ function miPic(item, dParent, styles, classes) {
 	d.innerHTML = info.text;
 	if (nundef(styles)) styles = {};
 	addKeys({ family: info.family, fz: 50, display: 'inline-block' }, styles);
-	mStyleX(d, styles);
+	mStyle(d, styles);
 	if (isdef(classes)) mClass(d, classes);
 	mCenterCenterFlex(d);
 	return d;
@@ -628,11 +628,11 @@ function mPlace(elem, pos, mavert = 4, mahor) {
 		let [wSym, hSym] = [rSym.w, rSym.h];
 		//console.log('_____________\nelem',elem,'\nrect',rSym,'v',v)
 		switch (pos) {
-			case 'cc': mStyleX(elem, { position: 'absolute', left: (wCard - wSym) / 2, top: (hCard - hSym) / 2 }); break;
-			case 'tc': mStyleX(elem, { position: 'absolute', left: (wCard - wSym) / 2, top: vert }); break;
-			case 'bc': mStyleX(elem, { position: 'absolute', left: (wCard - wSym) / 2, bottom: vert }); break;
-			case 'cl': mStyleX(elem, { position: 'absolute', left: hor, top: (hCard - hSym) / 2 }); break;
-			case 'cr': mStyleX(elem, { position: 'absolute', right: hor, top: (hCard - hSym) / 2 }); break;
+			case 'cc': mStyle(elem, { position: 'absolute', left: (wCard - wSym) / 2, top: (hCard - hSym) / 2 }); break;
+			case 'tc': mStyle(elem, { position: 'absolute', left: (wCard - wSym) / 2, top: vert }); break;
+			case 'bc': mStyle(elem, { position: 'absolute', left: (wCard - wSym) / 2, bottom: vert }); break;
+			case 'cl': mStyle(elem, { position: 'absolute', left: hor, top: (hCard - hSym) / 2 }); break;
+			case 'cr': mStyle(elem, { position: 'absolute', right: hor, top: (hCard - hSym) / 2 }); break;
 		}
 		return;
 	}
@@ -641,14 +641,14 @@ function mPlace(elem, pos, mavert = 4, mahor) {
 	elem.style[di[pos[0]]] = hor + 'px'; elem.style[di[pos[1]]] = vert + 'px';
 
 }
-function mPos(d, x, y, unit = 'px') { mStyleX(d, { left: x, top: y, position: 'absolute' }, unit); }
-function mPosTL(d, x, y, unit = 'px') { y = valf(y, x); mStyleX(d, { left: x, top: y, position: 'absolute' }, unit); }
-function mPosTR(d, x, y, unit = 'px') { y = valf(y, x); mStyleX(d, { right: x, top: y, position: 'absolute' }, unit); }
-function mPosBL(d, x, y, unit = 'px') { y = valf(y, x); mStyleX(d, { left: x, bottom: y, position: 'absolute' }, unit); }
-function mPosBR(d, x, y, unit = 'px') { y = valf(y, x); mStyleX(d, { right: x, bottom: y, position: 'absolute' }, unit); }
-function mPosBottom(d, x, y, unit = 'px') { mStyleX(d, { left: x, bottom: y, position: 'absolute' }, unit); }
-function mPosBottomRight(d, x, y, unit = 'px') { mStyleX(d, { right: x, bottom: y, position: 'absolute' }, unit); }
-function mPosRight(d, x, y, unit = 'px') { mStyleX(d, { right: x, top: y, position: 'absolute' }, unit); }
+function mPos(d, x, y, unit = 'px') { mStyle(d, { left: x, top: y, position: 'absolute' }, unit); }
+function mPosTL(d, x, y, unit = 'px') { y = valf(y, x); mStyle(d, { left: x, top: y, position: 'absolute' }, unit); }
+function mPosTR(d, x, y, unit = 'px') { y = valf(y, x); mStyle(d, { right: x, top: y, position: 'absolute' }, unit); }
+function mPosBL(d, x, y, unit = 'px') { y = valf(y, x); mStyle(d, { left: x, bottom: y, position: 'absolute' }, unit); }
+function mPosBR(d, x, y, unit = 'px') { y = valf(y, x); mStyle(d, { right: x, bottom: y, position: 'absolute' }, unit); }
+function mPosBottom(d, x, y, unit = 'px') { mStyle(d, { left: x, bottom: y, position: 'absolute' }, unit); }
+function mPosBottomRight(d, x, y, unit = 'px') { mStyle(d, { right: x, bottom: y, position: 'absolute' }, unit); }
+function mPosRight(d, x, y, unit = 'px') { mStyle(d, { right: x, top: y, position: 'absolute' }, unit); }
 function mRadio(label, val, dParent, styles = {}, handler, group_id) {
 	//console.log('label',label,'val',val);
 	let cursor = styles.cursor; delete styles.cursor; //styles.cursor = 'pointer';
@@ -666,7 +666,7 @@ function mRadio(label, val, dParent, styles = {}, handler, group_id) {
 function mRadioGroup(dParent, styles, id, legend) {
 	let f = mCreate('fieldset');
 	f.id = id;
-	if (isdef(styles)) mStyleX(f, styles);
+	if (isdef(styles)) mStyle(f, styles);
 	let l = mCreate('legend');
 	l.innerHTML = legend;
 	mAppend(f, l);
@@ -678,7 +678,7 @@ function mRemoveChildrenFromIndex(dParent, i) { while (dParent.children[i]) { mR
 function mRemoveClass(d) { for (let i = 1; i < arguments.length; i++) d.classList.remove(arguments[i]); }
 function mRemoveStyle(d, styles) { for (const k of styles) d.style[k] = null; }
 function mReveal(d) { d.style.opacity = 1; }
-function mScreen(dParent, styles) { let d = mDover(dParent); if (isdef(styles)) mStyleX(d, styles); return d; }
+function mScreen(dParent, styles) { let d = mDover(dParent); if (isdef(styles)) mStyle(d, styles); return d; }
 function mSelect(dParent, optionList, friendlyList, initval, onselect, label, styles, classes) {
 
 	//console.log('vals:',optionList,'\nfriendly',friendlyList,'\ninitval',initval,'\nonselect',onselect,'\nlabel',label)
@@ -702,7 +702,7 @@ function mSelect(dParent, optionList, friendlyList, initval, onselect, label, st
 
 	mAppend(d, inp);
 
-	if (isdef(styles)) mStyleX(inp, styles);
+	if (isdef(styles)) mStyle(inp, styles);
 	if (isdef(classes)) mClass(inp, classes);
 	return d;
 }
@@ -730,11 +730,11 @@ function mSidebar(title, dParent, styles, id, inner) {
 	mInsert(dParent.parentNode, elem);
 	return { div: elem, dContent: dContent, fOpen: openNav, fClose: closeNav };
 }
-function mSize(d, w, h, unit = 'px', sizing) { if (nundef(h)) h = w; mStyleX(d, { width: w, height: h }, unit); if (isdef(sizing)) setRect(d, sizing); }
+function mSize(d, w, h, unit = 'px', sizing) { if (nundef(h)) h = w; mStyle(d, { width: w, height: h }, unit); if (isdef(sizing)) setRect(d, sizing); }
 function mSpan(dParent, styles, id, inner, classes, sizing) {
 	let d = mCreate('span');
 	if (dParent) mAppend(dParent, d);
-	if (isdef(styles)) mStyleX(d, styles);
+	if (isdef(styles)) mStyle(d, styles);
 	if (isdef(classes)) mClass(d, classes);
 	if (isdef(id)) d.id = id;
 	if (isdef(inner)) d.innerHTML = inner;
@@ -749,7 +749,7 @@ function mShape(shape, dParent, styles, pos, classes) {
 	if (isdef(PolyClips[shape])) {
 		let d = mDiv(dParent, styles, null, null, classes);
 		styles['clip-path'] = PolyClips[shape];
-		mStyleX(d, styles);
+		mStyle(d, styles);
 		x = d;
 		// return drawShape(shape,dParent,styles,classes);
 	} else {
@@ -779,7 +779,7 @@ function mShapeR(shape = 'hex', dParent = null, styles = {}, pos, classes) {
 	if (sz) {
 		bvar = sz > 120 ? 8 : sz > 80 ? 5 : sz > 50 ? 3 : 1;
 		mClass(x, "weired" + bvar);
-		mStyleX(x, { w: sz });
+		mStyle(x, { w: sz });
 	}
 	if (isdef(dParent)) mAppend(dParent, x);
 	if (isdef(classes)) mClass(x, classes);
@@ -827,7 +827,7 @@ function mSuit(key, d, styles, pos, classes) {
 	styles = valf(styles, { bg: 'random' });
 	let sz = isdef(styles.h) ? styles.h : isdef(styles.sz) ? styles.sz : styles.w;
 	if (isdef(sz)) { el.setAttribute('height', sz); svg.setAttribute('sz', sz); }
-	mStyleX(el, styles);
+	mStyle(el, styles);
 
 	if (isdef(classes)) mClass(svg, classes);
 	if (isdef(d)) { mAppend(d, svg); gSizeToContent(svg); }
@@ -852,11 +852,11 @@ function mSuitPos(svg, pos) {
 		let [wSym, hSym] = [svg.getAttribute('width'), svg.getAttribute('height')];
 
 		switch (pos) {
-			case 'cc': mStyleX(svg, { position: 'absolute', left: (wCard - wSym) / 2, top: (hCard - hSym) / 2 }); break;
-			case 'tc': mStyleX(svg, { position: 'absolute', left: (wCard - wSym) / 2, top: 0 }); break;
-			case 'bc': mStyleX(svg, { position: 'absolute', left: (wCard - wSym) / 2, bottom: 0 }); break;
-			case 'cl': mStyleX(svg, { position: 'absolute', left: 0, top: (hCard - hSym) / 2 }); break;
-			case 'cr': mStyleX(svg, { position: 'absolute', right: 0, top: (hCard - hSym) / 2 }); break;
+			case 'cc': mStyle(svg, { position: 'absolute', left: (wCard - wSym) / 2, top: (hCard - hSym) / 2 }); break;
+			case 'tc': mStyle(svg, { position: 'absolute', left: (wCard - wSym) / 2, top: 0 }); break;
+			case 'bc': mStyle(svg, { position: 'absolute', left: (wCard - wSym) / 2, bottom: 0 }); break;
+			case 'cl': mStyle(svg, { position: 'absolute', left: 0, top: (hCard - hSym) / 2 }); break;
+			case 'cr': mStyle(svg, { position: 'absolute', right: 0, top: (hCard - hSym) / 2 }); break;
 		}
 		return;
 	}
@@ -932,7 +932,7 @@ const STYLE_PARAMS = {
 	weight: 'font-weight',
 	z: 'z-index'
 };
-function mStyleX(elem, styles, unit = 'px') {
+function mStyle(elem, styles, unit = 'px') {
 
 	if (isdef(styles.vmargin)) { styles.mabottom = styles.matop = styles.vmargin; }
 	if (isdef(styles.hmargin)) { styles.maleft = styles.maright = styles.hmargin; }
@@ -1131,7 +1131,7 @@ function mText(text, dParent, styles, classes) {
 	let d = mDiv(dParent);
 	if (!isEmpty(text)) { d.innerHTML = text; }
 	//console.log('text',text,typeof(text),isString(text),isEmpty(text),d);
-	if (isdef(styles)) mStyleX(d, styles);
+	if (isdef(styles)) mStyle(d, styles);
 	if (isdef(classes)) mClass(d, classes);
 	return d;
 }
@@ -1139,7 +1139,7 @@ function mTextArea(rows, cols, dParent, styles = {}, id) {
 	let html = `<textarea id="${id}" rows="${rows}" cols="${cols}" wrap="hard"></textarea>`;
 	let t = createElementFromHTML(html);
 	mAppend(dParent, t);
-	mStyleX(t, styles);
+	mStyle(t, styles);
 	return t;
 }
 function mTextFit(text, { wmax, hmax }, dParent, styles, classes) {
@@ -1156,7 +1156,7 @@ function mTextFit(text, { wmax, hmax }, dParent, styles, classes) {
 
 	//console.log('_',text,styles)
 
-	if (isdef(styles)) mStyleX(d, styles);
+	if (isdef(styles)) mStyle(d, styles);
 
 	if (isdef(classes)) mClass(d, classes);
 	return d;
@@ -1178,8 +1178,8 @@ function mTitledMessageDiv(title, dParent, id, outerStyles = {}, contentStyles =
 	contentStyles.w = '100%';
 	let hTitle = getRect(dTitle).h, hMessage = getRect(dMessage).h, hArea = getRect(d).h;
 	let hContent = hArea - hTitle - hMessage - 4;
-	mStyleX(dMessage, { h: hMessage + 2 });
-	mStyleX(dTitle, { h: hTitle + 2 });
+	mStyle(dMessage, { h: hMessage + 2 });
+	mStyle(dTitle, { h: hTitle + 2 });
 	contentStyles.hmin = hContent;
 	let dContent = mDiv(d, contentStyles, id + '.content');
 	if (!titleOnTop) { mAppend(d, dTitle); }
@@ -1243,7 +1243,7 @@ function mYaml(d, js) {
 function mZone(dParent, styles, pos) {
 	//console.log('mZone',dParent,styles,pos)
 	let d = mDiv(dParent);
-	if (isdef(styles)) mStyleX(d, styles);
+	if (isdef(styles)) mStyle(d, styles);
 	if (isdef(pos)) {
 		mIfNotRelative(dParent);
 		mPos(d, pos.x, pos.y);
@@ -1293,8 +1293,8 @@ function iContainer(dParent, styles, classes, id, inner) {
 	if (nundef(styles)) styles = {};
 	styles.display = 'inline-block';
 	//let picStyles = { fz: valf(styles.fz, valf(styles.h / 2, 20)), display: 'inline-block' };
-	mStyleX(dOuter, styles);
-	//mStyleX(d, picStyles);
+	mStyle(dOuter, styles);
+	//mStyle(d, picStyles);
 	if (isdef(classes)) mClass(dOuter, classes);
 	iAdd(item, { div: dOuter, dInner: dInner });
 	item.add = elem => mAppend(dInner, elem);
@@ -1414,8 +1414,8 @@ function iPanel(dParent, styles, classes, id, inner) {
 	if (isdef(inner)) d.innerHTML = inner;
 	if (nundef(styles)) styles = {};
 	let picStyles = { fz: valf(styles.fz, valf(styles.h / 2, 25)), display: 'inline-block' };
-	mStyleX(dOuter, styles);
-	mStyleX(d, picStyles);
+	mStyle(dOuter, styles);
+	mStyle(d, picStyles);
 	if (isdef(classes)) mClass(dOuter, classes);
 	iAdd(item, { div: dOuter, dPic: d });
 	return item;
@@ -1427,8 +1427,8 @@ function iRegisterX(item, keyProp, id) {
 }
 function iResize(i, w, h) { return isList(i) ? i.map(x => iSize(x, w, h)) : iSize(i, w, h); }
 function iSidebar(d1, d2, dToggle = null, w = 100, startOpen = true, id) {
-	mStyleX(d1, { h: '100%', w: startOpen == true ? w : 0, position: 'absolute', z: 1, top: 0, left: 0, 'overflow': 'hidden' }); //, transition: secs });
-	mStyleX(d2, { h: '100%', maleft: startOpen == true ? w : '0px', box: true }, null, null); //, transition: secs
+	mStyle(d1, { h: '100%', w: startOpen == true ? w : 0, position: 'absolute', z: 1, top: 0, left: 0, 'overflow': 'hidden' }); //, transition: secs });
+	mStyle(d2, { h: '100%', maleft: startOpen == true ? w : '0px', box: true }, null, null); //, transition: secs
 
 	d1.isOpen = startOpen;
 	d1.wNeeded = w;
@@ -1438,7 +1438,7 @@ function iSidebar(d1, d2, dToggle = null, w = 100, startOpen = true, id) {
 		d1.isOpen = !d1.isOpen;
 		let val = d1.isOpen ? d1.wNeeded : 0;
 		if (animate) multiStyleAnimation([[d1, { w: val }], [d2, { maleft: val }]], 500, tell);
-		else { mStyleX(d1, { w: val }); mStyleX(d2, { maleft: val }); tell(); }
+		else { mStyle(d1, { w: val }); mStyle(d2, { maleft: val }); tell(); }
 	}
 
 	let fOpen = (ev, animate = true) => {
@@ -1456,7 +1456,7 @@ function iSidebar(d1, d2, dToggle = null, w = 100, startOpen = true, id) {
 		let sz = getSizeNeeded(d1);
 		//console.log('size needed is', sz);
 		d1.wNeeded = sz.w;
-		if (d1.isOpen) { mStyleX(d1, { w: d1.wNeeded }); mStyleX(d2, { maleft: d1.wNeeded }); }
+		if (d1.isOpen) { mStyle(d1, { w: d1.wNeeded }); mStyle(d2, { maleft: d1.wNeeded }); }
 	};
 
 	let fReplaceContent = (cont, styles) => { clearElement(d1); fAddContent(cont, styles); };
@@ -1500,7 +1500,7 @@ function iSplay(items, iContainer, containerStyles, splay = 'right', ov = 20, ov
 
 	containerStyles.hmin = items[0].h;
 	//console.log('contStyles',containerStyles,items[0])
-	mStyleX(dParent, containerStyles);
+	mStyle(dParent, containerStyles);
 
 	//phase 4: add items to container
 	let gap = isdef(containerStyles.padding) ? containerStyles.padding : 0;
@@ -1517,7 +1517,7 @@ function iSplay(items, iContainer, containerStyles, splay = 'right', ov = 20, ov
 	return isdef(iParent) ? iParent : dParent;
 
 }
-function iStyle(i, styles) { mStyleX(iDiv(i), styles); }
+function iStyle(i, styles) { mStyle(iDiv(i), styles); }
 function iSym(kItem, dParent, styles, classes) {
 	let item;
 	if (isString(kItem)) { item = { id: getUID(), key: kItem, info: Syms[kItem] }; }
@@ -1531,8 +1531,8 @@ function iSym(kItem, dParent, styles, classes) {
 	d.innerHTML = info.text;
 	if (nundef(styles)) styles = {};
 	let picStyles = { family: info.family, fz: valf(styles.fz, valf(styles.h / 2, 25)), display: 'inline-block' };
-	mStyleX(dOuter, styles);
-	mStyleX(d, picStyles);
+	mStyle(dOuter, styles);
+	mStyle(d, picStyles);
 	if (isdef(classes)) mClass(dOuter, classes);
 
 	iAdd(item, { div: dOuter, dPic: d });
@@ -1630,9 +1630,9 @@ function drawShape(key, dParent, styles, classes, sizing) {
 	//if (nundef(classes)) classes = ['superhover'];
 	if (nundef(sizing)) sizing = { hgrow: true, wgrow: true };
 	let d = mDiv(dParent, styles, null, null, classes, sizing);
-	// mStyleX(d, { 'clip-path': PolyClips[key] });
-	if (key == 'circle' || key == 'ellipse') mStyleX(d,{rounding:'50%'});
-	else mStyleX(d, { 'clip-path': PolyClips[key] });
+	// mStyle(d, { 'clip-path': PolyClips[key] });
+	if (key == 'circle' || key == 'ellipse') mStyle(d,{rounding:'50%'});
+	else mStyle(d, { 'clip-path': PolyClips[key] });
 	return d;
 }
 function drawPlainCircle(c) {
@@ -1655,7 +1655,7 @@ function drawTriangle(dParent, styles, classes, sizing) {
 	if (nundef(classes)) classes = ['frameOnHover'];
 	if (nundef(sizing)) sizing = { hgrow: true, wgrow: true };
 	let d = mDiv(dParent, styles, null, null, classes, sizing);
-	mStyleX(d, { 'clip-path': 'polygon(50% 0%, 100% 100%, 0% 100%)' });
+	mStyle(d, { 'clip-path': 'polygon(50% 0%, 100% 100%, 0% 100%)' });
 	return d;
 }
 function drawFlatHex(dParent, styles, classes, sizing) {
@@ -1663,7 +1663,7 @@ function drawFlatHex(dParent, styles, classes, sizing) {
 	if (nundef(classes)) classes = ['frameOnHover'];
 	if (nundef(sizing)) sizing = { hgrow: true, wgrow: true };
 	let d = mDiv(dParent, styles, null, null, classes, sizing);
-	mStyleX(d, { 'clip-path': 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)' });
+	mStyle(d, { 'clip-path': 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)' });
 	return d;
 }
 function drawHex(dParent, styles, classes, sizing) {
@@ -1671,7 +1671,7 @@ function drawHex(dParent, styles, classes, sizing) {
 	if (nundef(classes)) classes = ['frameOnHover'];
 	if (nundef(sizing)) sizing = { hgrow: true, wgrow: true };
 	let d = mDiv(dParent, styles, null, null, classes, sizing);
-	mStyleX(d, { 'clip-path': 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' });
+	mStyle(d, { 'clip-path': 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' });
 	return d;
 }
 function gSizeToContent(svg) {
@@ -3311,7 +3311,7 @@ function ddStart(ev, source, isCopy = true, clearTarget = false) {
 	clone.clearTarget = clearTarget;
 	mAppend(document.body, clone);//mClass(clone, 'letter')
 	mClass(clone, 'dragelem');//der clone muss class 'dragelem' sein
-	mStyleX(clone, { left: ev.clientX - ev.offsetX, top: ev.clientY - ev.offsetY });//der clone wird richtig plaziert
+	mStyle(clone, { left: ev.clientX - ev.offsetX, top: ev.clientY - ev.offsetY });//der clone wird richtig plaziert
 	DDInfo.dragOffset = clone.drag = { offsetX: ev.offsetX, offsetY: ev.offsetY };
 	// von jetzt an un solange DragElem != null ist muss der clone sich mit der maus mitbewegen
 	document.body.onmousemove = onMovingCloneAround;
@@ -3324,7 +3324,7 @@ function onMovingCloneAround(ev) {
 	let my = ev.clientY;
 	let dx = mx - DragElem.drag.offsetX;
 	let dy = my - DragElem.drag.offsetY;
-	mStyleX(DragElem, { left: dx, top: dy });
+	mStyle(DragElem, { left: dx, top: dy });
 }
 function onReleaseClone(ev) {
 	//console.log('RELEASE!!!')
@@ -3811,15 +3811,15 @@ function measure_fieldset(fs) {
 	let diff = wt - wo;
 	if (diff >= 10) {
 		//verschiebe all die labels
-		for (const l of labels) { let d = l.parentNode; mStyleX(d, { maleft: diff / 2 }); }
+		for (const l of labels) { let d = l.parentNode; mStyle(d, { maleft: diff / 2 }); }
 
 	}
 	//each label should be at least 50 px wide!
 
 	//fs min-width setzen
 	let wneeded = Math.max(wt, wo) + 10;
-	mStyleX(fs, { wmin: wneeded });
-	for (const l of labels) { let d = l.parentNode; mStyleX(l, { display: 'inline-block', wmin: 50 }); mStyleX(d, { wmin: wneeded - 40 }); }
+	mStyle(fs, { wmin: wneeded });
+	for (const l of labels) { let d = l.parentNode; mStyle(l, { display: 'inline-block', wmin: 50 }); mStyle(d, { wmin: wneeded - 40 }); }
 
 
 
@@ -3884,12 +3884,12 @@ function setRect(elem, options) {
 	elem.setAttribute('rect', `${r.w} ${r.h} ${r.t} ${r.l} ${r.b} ${r.r}`); //damit ich es sehen kann!!!
 
 	if (isDict(options)) {
-		if (options.hgrow) mStyleX(elem, { hmin: r.h });
-		else if (options.hfix) mStyleX(elem, { h: r.h });
-		else if (options.hshrink) mStyleX(elem, { hmax: r.h });
-		if (options.wgrow) mStyleX(elem, { wmin: r.w });
-		else if (options.wfix) mStyleX(elem, { w: r.w });
-		else if (options.wshrink) mStyleX(elem, { wmax: r.w });
+		if (options.hgrow) mStyle(elem, { hmin: r.h });
+		else if (options.hfix) mStyle(elem, { h: r.h });
+		else if (options.hshrink) mStyle(elem, { hmax: r.h });
+		if (options.wgrow) mStyle(elem, { wmin: r.w });
+		else if (options.wfix) mStyle(elem, { w: r.w });
+		else if (options.wshrink) mStyle(elem, { wmax: r.w });
 	}
 	return r;
 }
@@ -3899,26 +3899,26 @@ function setRectInt(elem, options) {
 	elem.setAttribute('rect', `${r.w} ${r.h} ${r.t} ${r.l} ${r.b} ${r.r}`); //damit ich es sehen kann!!!
 
 	if (isDict(options)) {
-		if (options.hgrow) mStyleX(elem, { hmin: r.h });
-		else if (options.hfix) mStyleX(elem, { h: r.h });
-		else if (options.hshrink) mStyleX(elem, { hmax: r.h });
-		if (options.wgrow) mStyleX(elem, { wmin: r.w });
-		else if (options.wfix) mStyleX(elem, { w: r.w });
-		else if (options.wshrink) mStyleX(elem, { wmax: r.w });
+		if (options.hgrow) mStyle(elem, { hmin: r.h });
+		else if (options.hfix) mStyle(elem, { h: r.h });
+		else if (options.hshrink) mStyle(elem, { hmax: r.h });
+		if (options.wgrow) mStyle(elem, { wmin: r.w });
+		else if (options.wfix) mStyle(elem, { w: r.w });
+		else if (options.wshrink) mStyle(elem, { wmax: r.w });
 	}
 	return r;
 }
 function setWNeeded(elem) {
 	let sz = getSizeNeeded(elem);
 	let r = getRect(elem);
-	if (sz.w > r.w && elem.style.width != '100%') { r.w = sz.w; mStyleX(elem, { w: r.w }); }
+	if (sz.w > r.w && elem.style.width != '100%') { r.w = sz.w; mStyle(elem, { w: r.w }); }
 	elem.setAttribute('rect', `${r.w} ${r.h} ${r.t} ${r.l} ${r.b} ${r.r}`); //damit ich es sehen kann!!!
 	return r.w;
 }
 function setHNeeded(elem) {
 	let sz = getSizeNeeded(elem);
 	let r = getRect(elem);
-	if (sz.h > r.h && elem.style.height != '100%') { r.h = sz.h; mStyleX(elem, { h: r.h }); }
+	if (sz.h > r.h && elem.style.height != '100%') { r.h = sz.h; mStyle(elem, { h: r.h }); }
 	elem.setAttribute('rect', `${r.w} ${r.h} ${r.t} ${r.l} ${r.b} ${r.r}`); //damit ich es sehen kann!!!
 	return r.h;
 }
@@ -3933,8 +3933,8 @@ function parseRect(elem) {
 function setSizeNeeded(elem) {
 	let sz = getSizeNeeded(elem);
 	let r = getRect(elem);
-	if (sz.w > r.w && elem.style.width != '100%') { r.w = sz.w; mStyleX(elem, { w: r.w }); }
-	if (sz.h > r.h && elem.style.height != '100%') { r.h = sz.h; mStyleX(elem, { h: r.h }); }
+	if (sz.w > r.w && elem.style.width != '100%') { r.w = sz.w; mStyle(elem, { w: r.w }); }
+	if (sz.h > r.h && elem.style.height != '100%') { r.h = sz.h; mStyle(elem, { h: r.h }); }
 	elem.setAttribute('rect', `${r.w} ${r.h} ${r.t} ${r.l} ${r.b} ${r.r}`); //damit ich es sehen kann!!!
 	return r;
 }
@@ -3947,7 +3947,7 @@ function getSizeNeeded(elem) {
 	cStyles.position = 'fixed';
 	cStyles.opacity = 0;
 	cStyles.top = '-9999px';
-	mStyleX(d, cStyles);
+	mStyle(d, cStyles);
 	//d.innerHTML = text;
 	height = d.clientHeight;
 	width = d.clientWidth;
@@ -3962,7 +3962,7 @@ function getSizeWithStyles(text, styles) {
 	cStyles.position = 'fixed';
 	cStyles.opacity = 0;
 	cStyles.top = '-9999px';
-	mStyleX(d, cStyles);
+	mStyle(d, cStyles);
 	d.innerHTML = text;
 	height = d.clientHeight;
 	width = d.clientWidth;

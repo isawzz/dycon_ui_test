@@ -95,8 +95,8 @@ function ui_player_info(players){
 	clearElement(dParent);
 	mCenterFlex(dParent);
 	// let dPanel = dParent; //mDiv(dParent, { display: 'flex', 'justify-content': 'center', 'align-items': 'space-evenly' });
-	// mStyleX(dPanel,{align:'center'});
-	//mStyleX(dParent,{align:'center'})
+	// mStyle(dPanel,{align:'center'});
+	//mStyle(dParent,{align:'center'})
 	let dPanel = mDiv(dParent, { display: 'flex', dir:'column'}); //, 'justify-content': 'center', 'align-items': 'space-evenly' });
 	let items = {};
 	for (const pl of players) {
@@ -128,7 +128,7 @@ function ui_present_stats(otree) {
 		let item = items[uname];
 		let d = iDiv(item); mCenterFlex(d);mLinebreak(d);
 		//d.onmouseenter = inno_show_other_player_info;
-		//mStyleX(d, { w: 120, mabottom: 20 });
+		//mStyle(d, { w: 120, mabottom: 20 });
 		//let d1 = mDiv(d, { w: 100, matop: -10 }); mFlex(d1);
 		for (const r in totals) {
 			// inno_stat_sym(r, totals[r], d1, 20);

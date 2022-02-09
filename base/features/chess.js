@@ -2661,7 +2661,7 @@ function ShowFenPosition() {
 	//console.log('turn', SideChar[brd_side], 'fen', BoardToFen());
 
 	let pl = SideChar[brd_side] == 'b' ? 'BLACK (AI)' : 'WHITE (you)';
-	mStyleX(dTitle, { align: 'left' }); //,bg:'random'});
+	mStyle(dTitle, { align: 'left' }); //,bg:'random'});
 	// dTitle.innerHTML = `<div style='position:absolute;left:0px;top:0px;padding-bottom:10px'>Turn: ${pl}</div>`;
 	dTitle.innerHTML = `<div style='margin-left:78px;width:483px;text-align:center;'>Turn: ${pl}</div>`;
 	//console.log('fen',BoardToFen());

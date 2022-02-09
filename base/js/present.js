@@ -28,7 +28,7 @@ function present_games() {
 }
 function present_intro() {
 	let dParent = mBy('divTest'); show(dParent); clearElement(dParent);
-	mStyleX(dParent, { position: 'absolute', top: 0, bg: 'green', wmin: '100vw', hmin: '100vw' });
+	mStyle(dParent, { position: 'absolute', top: 0, bg: 'green', wmin: '100vw', hmin: '100vw' });
 	param_present_contacts(Session, dParent, 'onclick_user_in_intro');
 }
 function present_non_admin_user(username) {
@@ -42,7 +42,7 @@ function present_non_admin_user(username) {
 function present_non_admin_waiting_screen(){
 	//console.log('llllllllllllll',)
 	let dParent = mBy('divTest'); show(dParent); clearElement(dParent);
-	mStyleX(dParent, { position: 'absolute', top: 0, bg: 'green', wmin: '100vw', hmin: '100vw' });
+	mStyle(dParent, { position: 'absolute', top: 0, bg: 'green', wmin: '100vw', hmin: '100vw' });
 	
 	//show logout link in upper right corner
 	let dlogout = mDiv(dParent,{position:'absolute',right:10,top:4,cursor:'pointer'},'ddd_logout',`logout`);

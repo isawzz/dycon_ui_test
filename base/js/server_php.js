@@ -85,12 +85,12 @@ function from_server(result, type) {
 			let st = obj.player_status;
 			update_cur_table(obj, st == 'joined' ? 'red' : 'orange');
 			status_message(`You have ${st == 'joined' ? 'joined' : 'left'} the game! Wait for the host to start it!`);
-			// mStyleX(mBy(`rk_${obj.table.id}`), { bg: st == 'joined' ? 'red' : 'orange' }); //table status has changed!
+			// mStyle(mBy(`rk_${obj.table.id}`), { bg: st == 'joined' ? 'red' : 'orange' }); //table status has changed!
 			//joined_table(obj.table);
 			break;
 		case "start_table": alert('ERROR! ' + type);
 			update_cur_table(obj, 'green');
-			// mStyleX(mBy(`rk_${obj.table.id}`), { bg: 'green' }); //table status has changed!
+			// mStyle(mBy(`rk_${obj.table.id}`), { bg: 'green' }); //table status has changed!
 			status_message('You have started the game! ', obj.table.status);
 			break;
 		//#endregion

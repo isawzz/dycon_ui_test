@@ -654,7 +654,7 @@ class Board2D {
 	fill(d, rows, cols, items, cellStyles) {
 		if (nundef(items)) items = [];
 		clearElement(d);
-		mStyleX(d, { display: 'grid', 'grid-template-columns': cols });
+		mStyle(d, { display: 'grid', 'grid-template-columns': cols });
 		for (let i = 0; i < rows * cols; i++) {
 			let item = items[i];
 			if (isdef(item)) {
@@ -668,7 +668,7 @@ class Board2D {
 				item = { row: r, col: c, index: i };
 				let d1 = mDiv(d, cellStyles); iAdd(item, { div: d1 }); mAppend(d, d1);
 			}
-			mStyleX(iDiv(item), cellStyles);
+			mStyle(iDiv(item), cellStyles);
 			items.push(item)
 		}
 		return items;
@@ -1144,7 +1144,7 @@ function makeEdge(dParent, v1, v2, dFromEdge, ew = 20) {
 		let sp = `polygon(${v1.x - w + ew}px ${v1.y + dFromEdge + ew}px, ${v1.x + w + ew}px ${v1.y + dFromEdge + ew}px, ${v2.x + w + ew}px ${v2.y - dFromEdge + ew}px, ${v2.x - w + ew}px ${v2.y - dFromEdge + ew}px)`;
 		let de = mDiv(dParent, { position: 'absolute', left: -ew, top: -ew, w: '120%', h: '120%' });
 		mClass(de, 'edge');
-		mStyleX(de, { 'clip-path': sp });
+		mStyle(de, { 'clip-path': sp });
 		return mItem(null, { div: de }, { type: 'edge' },true);
 	}
 	if (v1.x > v2.x) { let h = v2; v2 = v1; v1 = h; switched = true; }
@@ -1178,7 +1178,7 @@ function makeEdge(dParent, v1, v2, dFromEdge, ew = 20) {
 	let y2b = ye - w * Math.sin(beta);
 
 	let de = mDiv(dParent, { position: 'absolute', left: 0, top: 0, w: '120%', h: '120%' });
-	mStyleX(de, { 'clip-path': `polygon(${x1t}px ${y1t}px, ${x2t}px ${y2t}px, ${x2b}px ${y2b}px, ${x1b}px ${y1b}px)` });
+	mStyle(de, { 'clip-path': `polygon(${x1t}px ${y1t}px, ${x2t}px ${y2t}px, ${x2b}px ${y2b}px, ${x1b}px ${y1b}px)` });
 	mClass(de, 'edge');
 	return mItem(null, { div: de }, { type: 'edge' },true);
 }
@@ -2098,7 +2098,7 @@ class MazeGraph extends AGraph {
 				if (m[i][j][1] == 0) { $('#' + selector).css('border-right', sBorder); }
 				if (m[i][j][2] == 0) { $('#' + selector).css('border-bottom', sBorder); }
 				if (m[i][j][3] == 0) { $('#' + selector).css('border-left', sBorder); }
-				//mStyleX(mBy(selector), { bg: coin(30) ? 'random' : 'lightgreen' });
+				//mStyle(mBy(selector), { bg: coin(30) ? 'random' : 'lightgreen' });
 			}
 			$('tMmaze > tbody').append("</tr>");
 		}
@@ -2175,9 +2175,9 @@ class MazeGraph extends AGraph {
 	setItemBorder(item, dir) {
 		let prop = getBorderPropertyForDirection(dir);
 		iDiv(item).style[prop] = `${this.gap}px solid black`;
-		//mStyleX(cell,{bg:'red'}); cell.innerHTML = dir;
+		//mStyle(cell,{bg:'red'}); cell.innerHTML = dir;
 	}
-	setItemColor(item, color) { mStyleX(iDiv(item), { bg: color }); }
+	setItemColor(item, color) { mStyle(iDiv(item), { bg: color }); }
 	setItemContent(item, text) { iDiv(item).innerHTML = text; }
 	removeItemContent(item) { iDiv(item).innerHTML = ''; }
 	disconnectCells(nid1, nid2) {

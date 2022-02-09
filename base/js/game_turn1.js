@@ -140,8 +140,8 @@ function test0_show_all_inno_cards() {
 		if (ci.exp[0] == 'F') inno_present_card(dTable, k);
 	}
 }
-function mHigh(d) { d = isString(d) ? mBy(d) : d; mStyleX(d, { border: 'yellow' }); }
-function munhigh(d) { d = isString(d) ? mBy(d) : d; mStyleX(d, { border: 'none' }); }
+function mHigh(d) { d = isString(d) ? mBy(d) : d; mStyle(d, { border: 'yellow' }); }
+function munhigh(d) { d = isString(d) ? mBy(d) : d; mStyle(d, { border: 'none' }); }
 function highlight_player(uname) { mHigh(`d_${uname}`); mHigh(iDiv(Items[uname])); }
 function activate_actions(r, uname) {
 	console.log('actions', r.actions);
@@ -157,7 +157,7 @@ function activate_actions(r, uname) {
 			if (isdef(Items[a])) {
 				let item = R.get_item(a);
 				let d = iDiv(item);
-				mStyleX(d, { cursor: 'pointer' });
+				mStyle(d, { cursor: 'pointer' });
 				d.onclick = ev => onselect_action(ev, r, a, uname);
 			} else if (a == 'pass') {
 				//console.log('****dTable', dTable);
@@ -167,7 +167,7 @@ function activate_actions(r, uname) {
 				let path = stringAfter(a, '.');
 				let item = R.get_item(path);
 				let d = iDiv(item);
-				mStyleX(d, { cursor: 'pointer' });
+				mStyle(d, { cursor: 'pointer' });
 				d.onclick = ev => onselect_action(ev, r, a, uname);
 				activate_draw_button(r, a, uname);
 			}

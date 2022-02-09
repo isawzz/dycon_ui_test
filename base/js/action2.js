@@ -87,7 +87,7 @@ function a2_add_selection(items, label, min = 0, max = 100, goto_post = true) {
 		for (let i = 0; i < items.length; i++) {
 			A.selected.push(i);
 			let a = items[i];
-			mStyleX(mBy(a.idButton), { bg: 'yellow' });
+			mStyle(mBy(a.idButton), { bg: 'yellow' });
 			if (isdef(a.idCard)) mClass(mBy(a.idCard), 'card_selected');
 		}
 
@@ -136,7 +136,7 @@ function a2_pre_if_uiActivated() {
 function a2_highlight_selected_items() {
 	for (const i of A.selected) {
 		let a = A.items[i];
-		mStyleX(mBy(a.idButton), { bg: 'yellow' });
+		mStyle(mBy(a.idButton), { bg: 'yellow' });
 		if (isdef(a.idCard)) mClass(mBy(a.idCard), 'card_selected');
 
 	}
@@ -150,7 +150,7 @@ function a2_select(ev) {
 	A.selected_key = A.items[a.index].key;
 	//console.log('...A.selected_key', A.selected_key)
 	//console.log('clicked action', a.key, 'next', A.goto_post ? 'post' : 'pre');
-	mStyleX(mBy(a.idButton), { bg: 'yellow' });
+	mStyle(mBy(a.idButton), { bg: 'yellow' });
 	if (isdef(a.idCard)) mClass(mBy(a.idCard), 'card_selected');
 	if (A.goto_post) ari_post_action(); else ari_pre_action();
 }
@@ -162,13 +162,13 @@ function a2_toggle_selection(ev) {
 	if (A.selected.includes(a.index)) {
 		// console.log('remove action');
 		removeInPlace(A.selected, a.index);
-		mStyleX(mBy(a.idButton), { bg: 'grey' });
+		mStyle(mBy(a.idButton), { bg: 'grey' });
 		// console.log('idCard',a.idCard);
 		if (isdef(a.idCard)) mClassRemove(mBy(a.idCard), 'card_selected');
 	} else {
 		// console.log('add action', a.index);
 		A.selected.push(a.index);
-		mStyleX(mBy(a.idButton), { bg: 'yellow' });
+		mStyle(mBy(a.idButton), { bg: 'yellow' });
 		if (isdef(a.idCard)) mClass(mBy(a.idCard), 'card_selected');
 	}
 }
@@ -199,7 +199,7 @@ function a2_get_harvest_items(uname) {
 		//console.log('gbuilding', gb);
 		if (isdef(gb.harvest)) {
 			let d = gb.harvest;
-			mStyleX(d, { cursor: 'pointer', opacity: 1 });
+			mStyle(d, { cursor: 'pointer', opacity: 1 });
 			gb.div = d;
 			let name = 'H' + i + ':' + (gb.list[0][0] == 'T' ? '10' : gb.list[0][0]);
 			let item = { o: gb, a: name, key: name, friendly: name, path: gb.path, index: i };
