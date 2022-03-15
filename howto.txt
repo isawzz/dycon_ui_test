@@ -53,7 +53,7 @@ git commit -m 'init'
 heroku git:remote -a dyconuitest
 git push heroku master
 
-create db on heroku:
+_________________create db on heroku:
 heroku run python
 >>> from app import db
 >>> db.create_all()
